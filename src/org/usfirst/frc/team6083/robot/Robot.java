@@ -7,8 +7,12 @@
 
 package org.usfirst.frc.team6083.robot;
 
+import System.Joysticks;
+import System.Autonomous.GyroWalker;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,6 +29,8 @@ public class Robot extends IterativeRobot {
 	private final static double error_range = 0.1;
 	private final static double Sspeed = 0.7;
 	private static double speedl, speedr, LeftY, RightY;
+	ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+	GyroWalker gyrowalker;
 	
 
 	@Override
@@ -32,6 +38,8 @@ public class Robot extends IterativeRobot {
 		m_chooser.addDefault("Default Auto", kDefaultAuto);
 		m_chooser.addObject("My Auto", kCustomAuto);
 		SmartDashboard.putData("Auto choices", m_chooser);
+		Joysticks.init();
+		gyro.calibrate();
 		Lmotor1 = new VictorSP(0);
 		Lmotor2 = new VictorSP(1);
 		Rmotor1 = new VictorSP(2);
@@ -39,6 +47,7 @@ public class Robot extends IterativeRobot {
 		UPmotor = new VictorSP(4);
 		Smotor1 = new VictorSP(5);
 		Smotor2 = new VictorSP(6);
+		gyrowalker = new GyroWalker(gyro);
 	}
 
 	@Override
@@ -47,6 +56,9 @@ public class Robot extends IterativeRobot {
 		// autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
 		System.out.println("Auto selected: " + m_autoSelected);
+		SmartDashboard.putNumber("targetangle", 0);
+		SmartDashboard.putNumber("gain", 0.05);
+		SmartDashboard.putNumber("maxSpeed", 0.2);
 	}
 
 	@Override
@@ -58,12 +70,26 @@ public class Robot extends IterativeRobot {
 		case kDefaultAuto:
 		default:
 			// Put default auto code here
+			gyrowalker.setTargetAngle(SmartDashboard.getNumber("targetangle", 0));
+			gyrowalker.calculate(0.25, -0.25);
+			Lmotor1.set(gyrowalker.getLeftPower());
+			Lmotor2.set(gyrowalker.getLeftPower());
+			Rmotor1.set(-gyrowalker.getRightPower());
+			Rmotor2.set(-gyrowalker.getRightPower());
+			SmartDashboard.putNumber("Angle", gyrowalker.getCurrentAngle());
+			SmartDashboard.putNumber("errorAngle", gyrowalker.getErrorAngle());
+			SmartDashboard.putNumber("left_drive1", gyrowalker.getLeftPower());
+			SmartDashboard.putNumber("right_drive1", gyrowalker.getRightPower());
+			gyrowalker.setGain(SmartDashboard.getNumber("gain", 0.01));
+			gyrowalker.setMaxPower(SmartDashboard.getNumber("maxSpeed", 0.3));
 			break;
 		}
 	}
 
 	@Override
 	public void teleopPeriodic() {
+		
+		Joysticks.update_data();
 		
 		// Remove error value
 		if (stick.getRawAxis(1) <= -error_range || stick.getRawAxis(1) > error_range) { // Yaxis (left)
@@ -108,7 +134,7 @@ public class Robot extends IterativeRobot {
 			Smotor2.set(-Sspeed);
 		} else if (stick.getRawButton(10)) {
 			Smotor1.set(-Sspeed);
-			Smotor2.set(Sspeed);
+			Smotor2.set(Sspeed);	
 		} else {
 			Smotor1.set(0);
 			Smotor2.set(0);
