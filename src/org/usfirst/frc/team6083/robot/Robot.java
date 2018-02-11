@@ -15,7 +15,6 @@ import System.DriveBase;
 import System.Joysticks;
 import System.Lightning;
 import System.RobotPower;
-import System.Autonomous.EncoderWalker;
 import System.Autonomous.GyroWalker;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
@@ -40,7 +39,6 @@ public class Robot extends IterativeRobot {
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 	GyroWalker gyrowalker;
 	Encoder leftEnc, rightEnc;
-	EncoderWalker leftWalker, rightWalker;
 
 	Timer lightT = new Timer();
 
@@ -56,8 +54,6 @@ public class Robot extends IterativeRobot {
 		leftEnc = new Encoder(0, 1);
 		leftEnc.setReverseDirection(true);
 		rightEnc = new Encoder(2, 3);
-		leftWalker = new EncoderWalker(leftEnc);
-		rightWalker = new EncoderWalker(rightEnc);
 		DriveBase.init();
 		CubeAssembly.init();
 		RobotPower.init();
@@ -73,10 +69,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("targetangle", 0);
 		SmartDashboard.putNumber("gain", 0.05);
 		SmartDashboard.putNumber("maxSpeed", 0.3);
-		leftWalker.reset();
-		rightWalker.reset();
-		leftWalker.setTargetDistance(300);
-		rightWalker.setTargetDistance(300);
+		
 	}
 
 	@Override
