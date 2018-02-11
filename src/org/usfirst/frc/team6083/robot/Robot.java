@@ -123,14 +123,15 @@ public class Robot extends IterativeRobot {
 			UPmotor.set(ControlMode.PercentOutput, 0);
 		}
 		
-		if(SmartDashboard.getBoolean("reverseDrive", false)) {
+		if(SmartDashboard.getBoolean("Drive/reverse", false)) {
 			led1.setBrightness(1);
 		}
 		else {
 			led1.setBrightness(0);
 		}
 		
-		SmartDashboard.putNumber("UPmotor", UPmotor.getMotorOutputPercent());
+		SmartDashboard.putNumber("UP/motor", UPmotor.getMotorOutputPercent());
+		SmartDashboard.putNumber("drive/gyro/angle", GyroWalker.translateAngle(gyro.getAngle()));
 	}
 
 	@Override

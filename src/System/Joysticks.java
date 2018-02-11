@@ -33,11 +33,11 @@ public class Joysticks {
 			joy1 = new Joystick(joy1_port);
 		if (avaliable[1])
 			joy2 = new Joystick(joy2_port);
-		SmartDashboard.putNumber("Joystick error range", 0.01);// default
+		SmartDashboard.putNumber("Joystick/error_range", 0.01);// default
 	}
 
 	public static void update_data() {
-		error_range = SmartDashboard.getNumber("Joystick error range", 0.01);
+		error_range = SmartDashboard.getNumber("Joystick/error_range", 0.01);
 
 		fix_error();
 		if (avaliable[0]) {

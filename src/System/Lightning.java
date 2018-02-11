@@ -16,7 +16,6 @@ public class Lightning {
 	public void setBrightness(double percent) {
 		percent = (percent>1) ? 1:percent;
 		percent = (percent<0) ? 0:percent;
-		SmartDashboard.putNumber("p", percent);
 		light.set(ControlMode.PercentOutput, 0.2*percent);
 	}
 	

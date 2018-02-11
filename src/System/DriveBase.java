@@ -28,11 +28,11 @@ public class DriveBase {
 	}
 
 	public static void tankDrive() {
-		if(Joysticks.rab && !lastButton) {
+		if(Joysticks.rab && (Joysticks.rab!=lastButton)) {
 			reverseDrive = !reverseDrive;
 			lastButton = true;
 		}
-		else {
+		else{
 			lastButton = false;
 		}
 		
@@ -43,10 +43,10 @@ public class DriveBase {
 			double t = left;
 			left = right;
 			right = t;
-			SmartDashboard.putBoolean("reverseDrive", true);
+			SmartDashboard.putBoolean("Drive/reverse", true);
 		}
 		else {
-			SmartDashboard.putBoolean("reverseDrive", false);
+			SmartDashboard.putBoolean("Drive/reverse", false);
 		}
 		
 		

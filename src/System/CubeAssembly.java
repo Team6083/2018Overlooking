@@ -63,6 +63,7 @@ public class CubeAssembly {
 			collect = false;
 		}
 		
-		SmartDashboard.putNumber("current", power1.getPortCurrent());
+		SmartDashboard.putNumber("Cube/current1", power1.getPortCurrent());
+		SmartDashboard.putNumber("Cube/current2", power2.getPortCurrent());
 	}
 }
