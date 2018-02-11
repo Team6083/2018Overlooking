@@ -30,4 +30,5 @@ public class RobotPower {
 	public static double getTotalCurrent() {
 		return pdp.getTotalCurrent();
 	}
+	
 }
