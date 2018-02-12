@@ -28,7 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	private static final String kDefaultAuto = "Default";
-	private static final String kCustomAuto = "My Auto";
+	private static final String kBaselineAuto = "Walk To Baseline";
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -39,13 +39,15 @@ public class Robot extends IterativeRobot {
 	ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 	GyroWalker gyrowalker;
 	Encoder leftEnc, rightEnc;
+	final double disPerStep = 0.133;
 
-	Timer lightT = new Timer();
+	Timer loopTimer = new Timer();
+	int step;
 
 	@Override
 	public void robotInit() {
 		m_chooser.addDefault("Default Auto", kDefaultAuto);
-		m_chooser.addObject("My Auto", kCustomAuto);
+		m_chooser.addObject("Walk To Baseline", kBaselineAuto);
 		SmartDashboard.putData("Auto choices", m_chooser);
 		Joysticks.init();
 		gyro.calibrate();
@@ -69,23 +71,48 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("targetangle", 0);
 		SmartDashboard.putNumber("gain", 0.05);
 		SmartDashboard.putNumber("maxSpeed", 0.3);
-		
+		step = 0;
 	}
 
 	@Override
 	public void autonomousPeriodic() {
+		String autoStep = "";
 		switch (m_autoSelected) {
-		case kCustomAuto:
-			// Put custom auto code here
+		case kBaselineAuto:
+			switch(step) {
+			case 0:
+				autoStep = "Walk to AutoLine";
+				double speed = 0;
+				if(disPerStep*-leftEnc.getDistance()<255) {
+					speed = 0.3;
+				}else {
+					speed = 0;
+					step++;
+				}
+				gyrowalker.setTargetAngle(0);
+				gyrowalker.calculate(-speed, -speed);
+				DriveBase.directControl(gyrowalker.getLeftPower(), -gyrowalker.getRightPower());
+				
+				break;
+			default:
+				autoStep = "none";
+				
+				break;
+			}
+			
+			gyrowalker.setGain(SmartDashboard.getNumber("gain", 0.01));
+			gyrowalker.setMaxPower(SmartDashboard.getNumber("maxSpeed", 0.3));
+			SmartDashboard.putNumber("gyroWalker/errorAngle", gyrowalker.getErrorAngle());
+			SmartDashboard.putNumber("gyroWalker/angle", gyrowalker.getCurrentAngle());
+			SmartDashboard.putNumber("drive/leftSpeed", gyrowalker.getLeftPower());
+			SmartDashboard.putNumber("drive/rightSpeed", gyrowalker.getRightPower());
 			break;
 		case kDefaultAuto:
 		default:
-			// Put default auto code here
-			
 			
 			
 			gyrowalker.setTargetAngle(SmartDashboard.getNumber("targetangle", 0));
-			gyrowalker.calculate(-0.1, -0.1);
+			gyrowalker.calculate(-0, -0);
 			DriveBase.directControl(gyrowalker.getLeftPower(), -gyrowalker.getRightPower());
 			SmartDashboard.putNumber("Angle", gyrowalker.getCurrentAngle());
 			SmartDashboard.putNumber("errorAngle", gyrowalker.getErrorAngle());
