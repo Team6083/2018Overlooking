@@ -12,7 +12,7 @@ public class CubeAssembly {
 	private static final int motor2_Port = 5;
 	private static final int power2_Port = 13;
 	
-	public static double speed = 0.6;
+	public static double speed = 0.5;
 	public static double currentLimit = 17;
 	
 	private static VictorSP motor1, motor2;
@@ -33,8 +33,8 @@ public class CubeAssembly {
 	public static void teleop() {
 		if(Joysticks.lab) {
 			//Put Cube
-			motor1.set((power1.getPortCurrent()>currentLimit)?0:0.4);
-			motor2.set((power2.getPortCurrent()>currentLimit)?0:-0.4);
+			motor1.set((power1.getPortCurrent()>currentLimit)?0:0.3);
+			motor2.set((power2.getPortCurrent()>currentLimit)?0:-0.3);
 		}
 		else if(Joysticks.x) {
 			motor1.set((power1.getPortCurrent()>currentLimit)?0:-speed);
