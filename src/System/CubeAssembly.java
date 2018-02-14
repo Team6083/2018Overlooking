@@ -1,7 +1,5 @@
 package System;
 
-import org.usfirst.frc.team6083.robot.Robot;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -65,5 +63,15 @@ public class CubeAssembly {
 		
 		SmartDashboard.putNumber("Cube/current1", power1.getPortCurrent());
 		SmartDashboard.putNumber("Cube/current2", power2.getPortCurrent());
+	}
+	
+	public static void open() {
+		motor1.set((power1.getPortCurrent()>currentLimit)?0:0.6);
+		motor2.set((power2.getPortCurrent()>currentLimit)?0:-0.6);
+	}
+	
+	public static void stop() {
+		motor1.set(0);
+		motor2.set(0);
 	}
 }

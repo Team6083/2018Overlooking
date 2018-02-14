@@ -24,17 +24,15 @@ public class DriveBase {
 		Lmotor2 = new VictorSP(Lmotor2_Port);
 		Rmotor1 = new VictorSP(Rmotor1_Port);
 		Rmotor2 = new VictorSP(Rmotor2_Port);
-		speedDown = 3.0;
+		speedDown = 2.0;
 	}
 
 	public static void tankDrive() {
-		if(Joysticks.rab && (Joysticks.rab!=lastButton)) {
+		if(Joysticks.b && (Joysticks.b!=lastButton)) {
 			reverseDrive = !reverseDrive;
-			lastButton = true;
 		}
-		else{
-			lastButton = false;
-		}
+		
+		lastButton = Joysticks.b;
 		
 		double left = -Joysticks.ly / speedDown;
 		double right = Joysticks.ry / speedDown;
@@ -43,11 +41,13 @@ public class DriveBase {
 			double t = left;
 			left = right;
 			right = t;
-			SmartDashboard.putBoolean("Drive/reverse", true);
+			SmartDashboard.putBoolean("drive/reverse", true);
 		}
 		else {
-			SmartDashboard.putBoolean("Drive/reverse", false);
+			SmartDashboard.putBoolean("drive/reverse", false);
 		}
+		
+		reverseDrive = SmartDashboard.getBoolean("drive/reverse", reverseDrive);
 		
 		
 		if (Joysticks.lb) {
@@ -61,6 +61,8 @@ public class DriveBase {
 		Lmotor2.set(left);
 		Rmotor1.set(right);
 		Rmotor2.set(right);
+		SmartDashboard.putNumber("drive/leftSpeed", left);
+		SmartDashboard.putNumber("drive/rightSpeed", right);
 	}
 
 	public static void directControl(double left, double right) {

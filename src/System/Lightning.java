@@ -3,8 +3,6 @@ package System;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class Lightning {
 	private final double maxCurrent = 1.5;	
 	private TalonSRX light;
