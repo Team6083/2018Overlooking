@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
 		gyrowalker = new GyroWalker(gyro);
 		leftEnc = new Encoder(0, 1);
 		leftEnc.setReverseDirection(true);
-		rightEnc = new Encoder(2, 3);
+		rightEnc = new Encoder(8, 9);
 		DriveBase.init();
 		CubeAssembly.init();
 		RobotPower.init();
