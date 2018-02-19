@@ -14,7 +14,7 @@ public class UpAssembly {
 	private static final int enc_ChA = 6;
 	private static final int enc_ChB = 7;
 	
-	private static final int[] set_steps = {0,-1500, -2850};
+	private static final int[] set_steps = {0, -3000, -5800};
 	private static int steps_index;
 	
 	private static int targetStep;
@@ -59,7 +59,7 @@ public class UpAssembly {
 	public static void dashboard() {
 		SmartDashboard.putNumber("Up/Enc", UpEnc.get());
 		SmartDashboard.putNumber("Up/targetStep", targetStep);
-		SmartDashboard.putNumber("UP/motorOutPut", UPmotor.getMotorOutputPercent());
+		SmartDashboard.putNumber("Up/motorOutPut", UPmotor.getMotorOutputPercent());
 	}
 	
 	private static double calculateSpeed(int target) {

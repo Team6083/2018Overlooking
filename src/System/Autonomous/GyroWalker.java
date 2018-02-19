@@ -38,8 +38,8 @@ public class GyroWalker {
 		errorAngle = targetAngle - angle;
 		
 		if(errorAngle < 20) {
-			leftPower = leftSetPower + errorAngle * gain * (20 - errorAngle)/20 * 6;
-			rightPower = rightSetPower - errorAngle * gain * (20 - errorAngle)/20 * 6;
+			leftPower = leftSetPower + errorAngle * gain * (20 - errorAngle)/20 * 8;
+			rightPower = rightSetPower - errorAngle * gain * (20 - errorAngle)/20 * 8;
 		}
 		else {
 			leftPower = leftSetPower + errorAngle * gain;

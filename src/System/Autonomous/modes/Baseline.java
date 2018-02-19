@@ -11,7 +11,7 @@ public class Baseline extends AutoEngine {
 		switch (step) {
 		case 0:
 			currentStep = "Set Raise Up";
-			// UpAssembly.moveStep(1);
+			 UpAssembly.moveStep(1);
 			nextStep();
 			break;
 		case 1:

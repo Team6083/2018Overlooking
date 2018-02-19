@@ -23,8 +23,10 @@ public class AutoEngine {
 	protected static final String kA2 = "A2";
 	protected static final String kA3 = "A3";
 	protected static String allianceSelected;
+	protected static int station;
 	
 	protected static String gameData;
+	protected static int switchPos;
 	
 	protected static SendableChooser<String> m_chooser = new SendableChooser<>();
 	protected static SendableChooser<String> a_chooser = new SendableChooser<>();
@@ -33,14 +35,16 @@ public class AutoEngine {
 	protected static GyroWalker gyrowalker;
 	protected static Encoder leftEnc, rightEnc;
 	
-	protected static final int leftEnc_ChA = 0;
-	protected static final int leftEnc_ChB = 1;
-	protected static final int rightEnc_ChA = 8;
-	protected static final int rightEnc_ChB = 9;
+	protected static final int leftEnc_ChA = 8;
+	protected static final int leftEnc_ChB = 9;
+	protected static final int rightEnc_ChA = 0;
+	protected static final int rightEnc_ChB = 1;
 	protected static final double disPerStep = 0.05236;
 	
 	protected static double leftSpeed;
 	protected static double rightSpeed;
+	protected static double leftDistance;
+	protected static double rightDistance;
 	
 	protected static int step;
 	protected static String currentStep = "";
@@ -63,8 +67,8 @@ public class AutoEngine {
 		gyrowalker = new GyroWalker(gyro);
 		leftEnc = new Encoder(leftEnc_ChA, leftEnc_ChB);
 		leftEnc.setReverseDirection(true);
-		
 		rightEnc = new Encoder(rightEnc_ChA, rightEnc_ChB);
+		rightEnc.setReverseDirection(false);
 	}
 
 	public static void start() {
@@ -78,10 +82,29 @@ public class AutoEngine {
 		step = 0;
 		leftSpeed = 0;
 		rightSpeed = 0;
+		switch(allianceSelected) {
+		case kA1:
+			station = 1;
+			break;
+		case kA2:
+			station = 2;
+			break;
+		case kA3:
+			station = 3;
+			break;
+		default:
+			station = 1;
+			break;
+		}
+		
+		switchPos = (gameData.charAt(0) == 'L')?1:2;
 	}
 
 	public static void loop() {
 		SmartDashboard.putNumber("drive/gyro/angle", GyroWalker.translateAngle(gyro.getAngle()));
+		leftDistance = leftEnc.getDistance() * disPerStep;
+		rightDistance = rightEnc.getDistance() * disPerStep * 2;
+		
 		switch (m_autoSelected) {
 		case kSwitch:
 			Switch.loop();
@@ -94,22 +117,32 @@ public class AutoEngine {
 			break;
 		case kDoNithing:
 		default:
-			
+			leftSpeed = 0;
+			rightSpeed = 0;
+			gyrowalker.setTargetAngle(0);
+//			gyrowalker.setTargetAngle(SmartDashboard.getNumber("Target Angle", 0));
 			break;
 		}
 		UpAssembly.autoLoop();
-		DriveBase.directControl(leftSpeed, rightSpeed);
+		gyrowalker.calculate(leftSpeed, rightSpeed);
+
+		leftSpeed = gyrowalker.getLeftPower();
+		rightSpeed = gyrowalker.getRightPower();
+		DriveBase.directControl(leftSpeed, -rightSpeed);
 		
 		SmartDashboard.putString("currentStep", currentStep);
 		SmartDashboard.putNumber("Current Angle", gyrowalker.getCurrentAngle());
 		SmartDashboard.putNumber("Error Angle", gyrowalker.getErrorAngle());
-		SmartDashboard.putNumber("Left Dis", leftEnc.getDistance() * disPerStep);
-		SmartDashboard.putNumber("Right Dis", rightEnc.getDistance() * disPerStep);
+		SmartDashboard.putNumber("Left Dis", leftDistance);
+		SmartDashboard.putNumber("Right Dis", rightDistance);
+		SmartDashboard.putNumber("Timer", autoTimer.get());
 	}
 	
 	protected static void nextStep() {
 		step++;
 		autoTimer.stop();
 		autoTimer.reset();
+		leftEnc.reset();
+		rightEnc.reset();
 	}
 }
