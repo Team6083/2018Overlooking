@@ -72,7 +72,6 @@ public class Robot extends IterativeRobot {
 		}
 		
 		
-		SmartDashboard.putNumber("Up step", UpAssembly.getStep());
 	}
 
 	@Override

@@ -59,8 +59,8 @@ public class DriveBase {
 		Lmotor2.set(left);
 		Rmotor1.set(right);
 		Rmotor2.set(right);
-		SmartDashboard.putNumber("drive_leftSpeed", left);
-		SmartDashboard.putNumber("drive_rightSpeed", right);
+		SmartDashboard.putNumber("drive/leftSpeed", left);
+		SmartDashboard.putNumber("drive/rightSpeed", right);
 	}
 
 	public static void directControl(double left, double right) {
@@ -68,8 +68,8 @@ public class DriveBase {
 		Lmotor2.set(left);
 		Rmotor1.set(right);
 		Rmotor2.set(right);
-		SmartDashboard.putNumber("drive_leftSpeed", left);
-		SmartDashboard.putNumber("drive_rightSpeed", right);
+		SmartDashboard.putNumber("drive/leftSpeed", left);
+		SmartDashboard.putNumber("drive/rightSpeed", right);
 	}
 
 	public static double getLeftPower() {

@@ -5,7 +5,7 @@ import System.Autonomous.AutoEngine;
 
 public class Baseline extends AutoEngine {
 	
-	private static final double baseLineDis = 250;// Require accurate data
+	private static final double baseLineDis = 100;// In inch
 
 	public static void loop() {
 		switch (step) {
@@ -21,29 +21,27 @@ public class Baseline extends AutoEngine {
 			break;
 		case 2:
 			currentStep = "Go foward";
-			if (leftEnc.getDistance() * disPerStep < baseLineDis) {
+			if (rightDistance > baseLineDis && leftDistance > baseLineDis) {
+				nextStep();
+			}
+			
+			if (leftDistance < baseLineDis) {
 				leftSpeed = 0.2;
 			} else {
 				leftSpeed = 0;
 			}
 
-			if (rightEnc.getDistance() * disPerStep < baseLineDis) {
-				rightSpeed = -0.2;
+			if (rightDistance < baseLineDis) {
+				rightSpeed = 0.2;
 			} else {
 				rightSpeed = 0;
 			}
 			gyrowalker.setTargetAngle(0);
-			// gyrowalker.calculate(leftSpeed, rightSpeed);
-
-			// leftSpeed = gyrowalker.getLeftPower();
-			// rightSpeed = gyrowalker.getRightPower();
-			if (rightEnc.getDistance() * disPerStep > baseLineDis && leftEnc.getDistance() * disPerStep > baseLineDis) {
-				nextStep();
-			}
-
 			break;
 		default:
 			currentStep = "none";
+			leftSpeed = 0;
+			rightSpeed = 0;
 			break;
 		}
 	}

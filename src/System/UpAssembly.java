@@ -57,9 +57,9 @@ public class UpAssembly {
 	}
 	
 	public static void dashboard() {
-		SmartDashboard.putNumber("UpEnc", UpEnc.get());
-		SmartDashboard.putNumber("targetStep", targetStep);
-		SmartDashboard.putNumber("UP_motor", UPmotor.getMotorOutputPercent());
+		SmartDashboard.putNumber("Up/Enc", UpEnc.get());
+		SmartDashboard.putNumber("Up/targetStep", targetStep);
+		SmartDashboard.putNumber("UP/motorOutPut", UPmotor.getMotorOutputPercent());
 	}
 	
 	private static double calculateSpeed(int target) {
