@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotInit() {
-//		AutoEngine.init();
+		AutoEngine.init();
 		UpAssembly.init();
 		DriveBase.init();
 		CubeAssembly.init();
@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-		
+		AutoEngine.loop();
 	}
 
 	@Override

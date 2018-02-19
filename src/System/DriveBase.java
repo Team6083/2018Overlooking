@@ -1,7 +1,5 @@
 package System;
 
-import org.usfirst.frc.team6083.robot.Robot;
-
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -61,8 +59,8 @@ public class DriveBase {
 		Lmotor2.set(left);
 		Rmotor1.set(right);
 		Rmotor2.set(right);
-		SmartDashboard.putNumber("drive/leftSpeed", left);
-		SmartDashboard.putNumber("drive/rightSpeed", right);
+		SmartDashboard.putNumber("drive_leftSpeed", left);
+		SmartDashboard.putNumber("drive_rightSpeed", right);
 	}
 
 	public static void directControl(double left, double right) {
@@ -70,6 +68,8 @@ public class DriveBase {
 		Lmotor2.set(left);
 		Rmotor1.set(right);
 		Rmotor2.set(right);
+		SmartDashboard.putNumber("drive_leftSpeed", left);
+		SmartDashboard.putNumber("drive_rightSpeed", right);
 	}
 
 	public static double getLeftPower() {
