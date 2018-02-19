@@ -23,6 +23,8 @@ public class Joysticks {
 
 	public static boolean a, b, x, y, lb, rb, lab, rab, back, start;// buttons for XBox
 	public static boolean[] probutton = new boolean[12];// buttons for 3D Pro
+	
+	public static boolean[] dpad;
 
 	private static double error_range;
 
@@ -74,6 +76,10 @@ public class Joysticks {
 				probutton[i] = joy2.getRawButton(i + 1);
 			}
 		}
+	}
+	
+	public static boolean getRealeased(int number) {
+		return joy1.getRawButtonReleased(number);
 	}
 
 	private static void fix_error() {
