@@ -24,7 +24,7 @@ public class Joysticks {
 	public static boolean a, b, x, y, lb, rb, lab, rab, back, start;// buttons for XBox
 	public static boolean[] probutton = new boolean[12];// buttons for 3D Pro
 	
-	public static boolean[] dpad;
+	public static int pov;
 
 	private static double error_range;
 
@@ -40,7 +40,8 @@ public class Joysticks {
 
 	public static void update_data() {
 		error_range = SmartDashboard.getNumber("Joystick/error_range", 0.01);
-
+		
+		pov = joy1.getPOV(0);
 		fix_error();
 		if (avaliable[0]) {
 			lx = joy1_axis[0];

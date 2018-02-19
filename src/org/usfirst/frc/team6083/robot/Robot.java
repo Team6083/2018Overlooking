@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team6083.robot;
 
+import System.ClimbAssembly;
 import System.CubeAssembly;
 import System.DriveBase;
 import System.Joysticks;
@@ -36,6 +37,7 @@ public class Robot extends IterativeRobot {
 		CubeAssembly.init();
 		RobotPower.init();
 		Joysticks.init();
+		ClimbAssembly.init();
 //		led1 = new Lightning(2);
 		
 		CameraServer.getInstance().addAxisCamera("axis-camera2", "axis-camera2.local");
@@ -62,7 +64,7 @@ public class Robot extends IterativeRobot {
 		CubeAssembly.teleop();
 		Joysticks.update_data();
 		UpAssembly.teleop();
-
+		ClimbAssembly.teteop();
 		if (SmartDashboard.getBoolean("drive/reverse", false)) {
 //			led1.setBrightness(1);
 		} else {
