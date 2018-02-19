@@ -18,7 +18,7 @@ public class GyroWalker {
 		leftPower = 0;
 		rightPower = 0;
 		targetAngle = 0;
-		gain = 0.01;
+		gain = 0.005;
 		maxPower = 0.3;
 	}
 	
@@ -37,8 +37,14 @@ public class GyroWalker {
 		
 		errorAngle = targetAngle - angle;
 		
-		leftPower = leftSetPower + errorAngle * gain;
-		rightPower = rightSetPower - errorAngle * gain;
+		if(errorAngle < 20) {
+			leftPower = leftSetPower + errorAngle * gain * (20 - errorAngle)/20 * 6;
+			rightPower = rightSetPower - errorAngle * gain * (20 - errorAngle)/20 * 6;
+		}
+		else {
+			leftPower = leftSetPower + errorAngle * gain;
+			rightPower = rightSetPower - errorAngle * gain;
+		}
 		
 		if(Math.abs(leftPower)>maxPower) {
             if (leftPower >= 0) {
@@ -95,5 +101,9 @@ public class GyroWalker {
 
 	public double getRightPower() {
 		return rightPower;
+	}
+	
+	public double getTargetAngle() {
+		return targetAngle;
 	}
 }
