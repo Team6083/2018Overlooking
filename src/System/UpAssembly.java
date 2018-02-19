@@ -14,7 +14,7 @@ public class UpAssembly {
 	private static final int enc_ChA = 6;
 	private static final int enc_ChB = 7;
 	
-	private static final int[] set_steps = {0,-1500, -3000};
+	private static final int[] set_steps = {0,-1500, -2850};
 	private static int steps_index;
 	
 	private static int targetStep;
@@ -23,14 +23,14 @@ public class UpAssembly {
 		UPmotor = new TalonSRX(3);
 		UpEnc = new Encoder(enc_ChA,enc_ChB);
 		UpEnc.reset();
-		gain = 0.01;
+		gain = 0.005;
 		targetStep = 0;
 		steps_index = 0;
 	}
 	
 	public static void teleop() {
 		if (Joysticks.lt > 0.1) {
-			UPmotor.set(ControlMode.PercentOutput, Joysticks.lt / 2);
+		UPmotor.set(ControlMode.PercentOutput, Joysticks.lt * 0.75);
 			targetStep = UpEnc.get();
 		} else if (Joysticks.rt > 0.1) {
 			UPmotor.set(ControlMode.PercentOutput, -Joysticks.rt);
@@ -39,28 +39,56 @@ public class UpAssembly {
 			UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
 		}
 		
-		if(Joysticks.back && steps_index > 0) {
+		if(Joysticks.back && Joysticks.getRealeased(7) && steps_index > 0) {
 			steps_index--;
 			targetStep = set_steps[steps_index];
 		}
-		else if(Joysticks.start && steps_index < set_steps.length - 1) {
+		else if(Joysticks.start && Joysticks.getRealeased(8) && steps_index < set_steps.length - 1) {
 			steps_index++;
 			targetStep = set_steps[steps_index];
 		}
-		
-		SmartDashboard.putNumber("UP/motor", UPmotor.getMotorOutputPercent());
+		dashboard();
 	}
 	
-	public static double calculateSpeed(int target) {
+	public static void autoLoop() {
+		UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
+		
+		dashboard();
+	}
+	
+	public static void dashboard() {
+		SmartDashboard.putNumber("UpEnc", UpEnc.get());
+		SmartDashboard.putNumber("targetStep", targetStep);
+		SmartDashboard.putNumber("UP_motor", UPmotor.getMotorOutputPercent());
+	}
+	
+	private static double calculateSpeed(int target) {
 		double speed = 0;
 		
-		speed = (UpEnc.get() - target) * gain;
+		speed = (target - UpEnc.get()) * gain;
 		
 		if(Math.abs(speed)>0.5) {
-			speed = (speed>0)?0.5:-0.5;
+			speed = (speed>0)?0.7:-0.7;
 		}
 		
 		return speed;
+	}
+	
+	public static void setTarget(int step) {
+		targetStep = step;
+	}
+	
+	public static void moveStep(int move) {
+		int index = steps_index + move;
+		
+		if(index >= 0 && index < set_steps.length) {
+			steps_index = index;
+			setTarget(set_steps[steps_index]);
+		}
+	}
+	
+	public static boolean isReachTarget() {
+		return (Math.abs(UpEnc.get() - targetStep) < 50)?true:false;
 	}
 	
 	public static void up() {
