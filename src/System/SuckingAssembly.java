@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CubeAssembly {
+public class SuckingAssembly {
 	
 	private static final int motor1_Port = 4;
 	private static final int power1_Port = 2;
