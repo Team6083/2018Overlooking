@@ -19,7 +19,7 @@ public class GyroWalker {
 		leftPower = 0;
 		rightPower = 0;
 		targetAngle = 0;
-		gain = 0.005;
+		gain = 0.004;
 		maxPower = 0.6;
 		maxEdit = 0.2;
 	}

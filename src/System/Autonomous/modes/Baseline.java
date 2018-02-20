@@ -18,6 +18,8 @@ public class Baseline extends AutoEngine {
 			currentStep = "Raise Up";
 			if (UpAssembly.isReachTarget())
 				nextStep();
+			leftSpeed = 0;
+			rightSpeed = 0;
 			break;
 		case 2:
 			currentStep = "Go foward";
@@ -26,13 +28,13 @@ public class Baseline extends AutoEngine {
 			}
 			
 			if (leftDistance < baseLineDis) {
-				leftSpeed = 0.2;
+				leftSpeed = 0.4;
 			} else {
 				leftSpeed = 0;
 			}
 
 			if (rightDistance < baseLineDis) {
-				rightSpeed = 0.2;
+				rightSpeed = 0.4;
 			} else {
 				rightSpeed = 0;
 			}
