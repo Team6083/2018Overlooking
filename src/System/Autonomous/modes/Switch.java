@@ -5,8 +5,8 @@ import System.Autonomous.AutoEngine;
 
 public class Switch extends AutoEngine {
 	
-	static double[] walk1 = {100,100,100};
-	static double[] walk2 = {23,54,23};
+	static double[] walk1 = {150,0,150};
+	static double[] walk2 = {23,135,23};
 	static double walk3 = 3;
 	
 	static boolean first = false;
@@ -22,8 +22,12 @@ public class Switch extends AutoEngine {
 			currentStep = "Raise Up";
 			leftSpeed = 0;
 			rightSpeed = 0;
-//			if (UpAssembly.isReachTarget()) nextStep();
-			nextStep();
+			if(station == 2) {
+				if (UpAssembly.isReachTarget()) nextStep();
+			}
+			else {
+				nextStep();
+			}
 			break;
 		case 2:
 			currentStep = "Walk1";
@@ -49,7 +53,12 @@ public class Switch extends AutoEngine {
 			currentStep = "Set Turn1";
 			leftSpeed = 0;
 			rightSpeed = 0;
-			gyrowalker.setTargetAngle((switchPos == 1)?-90:90);
+			if(station == 2) {
+				gyrowalker.setTargetAngle((switchPos == 1)?-24:24);
+			}
+			else {
+				gyrowalker.setTargetAngle((switchPos == 1)?-90:90);
+			}
 			nextStep();
 			break;
 		case 4:
