@@ -62,7 +62,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		DriveBase.tankDrive();
+		DriveBase.arcadeDrive();
 		SuckingAssembly.teleop();
 		Joysticks.update_data();
 		UpAssembly.teleop();

@@ -29,21 +29,21 @@ public class UpAssembly {
 	}
 	
 	public static void teleop() {
-		if (Joysticks.probutton[] > 0.1) {
+		if (Joysticks.probutton[0]) {
 		UPmotor.set(ControlMode.PercentOutput, Joysticks.lt * 0.75);
 			targetStep = UpEnc.get();
-		} else if (Joysticks.rt > 0.1) {
+		} else if (Joysticks.probutton[1]) {
 			UPmotor.set(ControlMode.PercentOutput, -Joysticks.rt);
 			targetStep = UpEnc.get();
 		} else {
 			UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
 		}
 		
-		if(Joysticks.back && Joysticks.getRealeased(7) && steps_index > 0) {
+		if(Joysticks.probutton[6] && Joysticks.getRealeased(6) && steps_index > 0) {
 			steps_index--;
 			targetStep = set_steps[steps_index];
 		}
-		else if(Joysticks.start && Joysticks.getRealeased(8) && steps_index < set_steps.length - 1) {
+		else if(Joysticks.probutton[7] && Joysticks.getRealeased(7) && steps_index < set_steps.length - 1) {
 			steps_index++;
 			targetStep = set_steps[steps_index];
 		}

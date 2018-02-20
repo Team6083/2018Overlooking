@@ -80,7 +80,7 @@ public class Joysticks {
 	}
 	
 	public static boolean getRealeased(int number) {
-		return joy1.getRawButtonReleased(number);
+		return joy2.getRawButtonReleased(number);
 	}
 
 	private static void fix_error() {
