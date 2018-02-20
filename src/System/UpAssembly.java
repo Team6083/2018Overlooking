@@ -29,7 +29,7 @@ public class UpAssembly {
 	}
 	
 	public static void teleop() {
-		if (Joysticks.lt > 0.1) {
+		if (Joysticks.probutton[] > 0.1) {
 		UPmotor.set(ControlMode.PercentOutput, Joysticks.lt * 0.75);
 			targetStep = UpEnc.get();
 		} else if (Joysticks.rt > 0.1) {

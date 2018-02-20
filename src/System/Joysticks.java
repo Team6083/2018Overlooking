@@ -29,8 +29,8 @@ public class Joysticks {
 	private static double error_range;
 
 	public static void init() {
-		avaliable[0] = true;
-		avaliable[1] = false;
+		avaliable[0] = false;
+		avaliable[1] = true;
 		if (avaliable[0])
 			joy1 = new Joystick(joy1_port);
 		if (avaliable[1])

@@ -40,7 +40,7 @@ public class SuckingAssembly {
 			motor1.set((power1.getPortCurrent()>currentLimit)?0:-speed);
 			motor2.set((power2.getPortCurrent()>currentLimit)?0:speed);
 		}
-		else if(Joysticks.y && !collect) {
+		else if(Joysticks.probutton[4] && !collect) {
 			collect = true;
 			collectTimer.start();
 		}
