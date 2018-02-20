@@ -31,35 +31,35 @@ public class SuckingAssembly {
 	}
 	
 	public static void teleop() {
-		if(Joysticks.lab) {
+		if(Joysticks.probutton[5]) {
 			//Put Cube
 			motor1.set((power1.getPortCurrent()>currentLimit)?0:0.4);
 			motor2.set((power2.getPortCurrent()>currentLimit)?0:-0.4);
 		}
-		else if(Joysticks.x) {
+		else if(Joysticks.probutton[4]) {
 			motor1.set((power1.getPortCurrent()>currentLimit)?0:-speed);
 			motor2.set((power2.getPortCurrent()>currentLimit)?0:speed);
-		}
+		}/*
 		else if(Joysticks.probutton[4] && !collect) {
 			collect = true;
 			collectTimer.start();
 		}
-		else if(collect) {
+		else if(Joysticks.probutton[]) {
 			//Collect Cube
 			motor1.set((power1.getPortCurrent()>currentLimit)?0:-speed);
 			motor2.set((power2.getPortCurrent()>currentLimit)?0:speed);
 			SmartDashboard.putNumber("lightStatus", 1);
-		}
+		}*/
 		else {
 			motor1.set(0);
 			motor2.set(0);
 		}
-		
+		/*
 		if(collectTimer.get() > collectTime || power1.getPortCurrent()>currentLimit || power2.getPortCurrent()> currentLimit || Joysticks.x) {
 			collectTimer.stop();
 			collectTimer.reset();
 			collect = false;
-		}
+		}*/
 		
 		SmartDashboard.putNumber("Cube/current1", power1.getPortCurrent());
 		SmartDashboard.putNumber("Cube/current2", power2.getPortCurrent());
