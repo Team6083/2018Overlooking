@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
@@ -47,6 +48,17 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+		servo.set(0);
+		Timer.delay(1);
+		servo.set(1);
+		Timer.delay(0.2);
+		servo.set(0);
+		Timer.delay(0.2);
+		servo.set(1);
+		Timer.delay(0.2);
+		servo.set(0);
+		Timer.delay(0.2);
+		servo.set(1);
 		AutoEngine.start();
 	}
 
