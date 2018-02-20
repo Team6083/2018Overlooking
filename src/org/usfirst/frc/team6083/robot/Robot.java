@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 	Lightning led1;
 
 	final double disPerStep = 0.133;
+	Servo servo = new Servo(6);
 
 	@Override
 	public void robotInit() {
@@ -55,7 +57,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		
+		SmartDashboard.putNumber("servo", 0);
 	}
 
 	@Override
@@ -71,7 +73,12 @@ public class Robot extends IterativeRobot {
 //			led1.setBrightness(0);
 		}
 		
-		
+		if(Joysticks.a) {
+			servo.set(0);
+		}
+		else {
+			servo.set(1);
+		}
 	}
 
 	@Override
