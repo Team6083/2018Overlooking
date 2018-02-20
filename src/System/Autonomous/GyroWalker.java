@@ -12,6 +12,7 @@ public class GyroWalker {
 	private double leftPower, rightPower;
 	private double gain;
 	private double maxPower;
+	private double maxEdit;
 	
 	public GyroWalker(Gyro gyro) {
 		this.gyro = gyro;
@@ -19,7 +20,8 @@ public class GyroWalker {
 		rightPower = 0;
 		targetAngle = 0;
 		gain = 0.005;
-		maxPower = 0.3;
+		maxPower = 0.6;
+		maxEdit = 0.2;
 	}
 	
 	public void calculate(double leftSetPower, double rightSetPower) {
@@ -37,14 +39,21 @@ public class GyroWalker {
 		
 		errorAngle = targetAngle - angle;
 		
-		if(errorAngle < 20) {
-			leftPower = leftSetPower + errorAngle * gain * (20 - errorAngle)/20 * 8;
-			rightPower = rightSetPower - errorAngle * gain * (20 - errorAngle)/20 * 8;
+		double editPower = 0;
+		
+		if(Math.abs(errorAngle) < 20) {
+			editPower = errorAngle * gain * (20 - errorAngle)/20 * 10;
 		}
 		else {
-			leftPower = leftSetPower + errorAngle * gain;
-			rightPower = rightSetPower - errorAngle * gain;
+			editPower =  errorAngle * gain;
 		}
+		
+		if(editPower>maxEdit) {
+			editPower = (editPower > 0)?maxEdit:-maxEdit;
+		}
+		
+		leftPower = leftSetPower + editPower;
+		rightPower = rightSetPower - editPower;
 		
 		if(Math.abs(leftPower)>maxPower) {
             if (leftPower >= 0) {
