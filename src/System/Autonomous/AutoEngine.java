@@ -98,6 +98,7 @@ public class AutoEngine {
 		}
 		
 		switchPos = (gameData.charAt(0) == 'L')?1:2;
+//		SmartDashboard.putNumber("Target Angle", 0);
 	}
 
 	public static void loop() {

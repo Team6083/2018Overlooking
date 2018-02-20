@@ -8,7 +8,7 @@
 package org.usfirst.frc.team6083.robot;
 
 import System.ClimbAssembly;
-import System.CubeAssembly;
+import System.SuckingAssembly;
 import System.DriveBase;
 import System.Joysticks;
 import System.Lightning;
@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 		AutoEngine.init();
 		UpAssembly.init();
 		DriveBase.init();
-		CubeAssembly.init();
+		SuckingAssembly.init();
 		RobotPower.init();
 		Joysticks.init();
 		ClimbAssembly.init();
@@ -61,7 +61,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		DriveBase.tankDrive();
-		CubeAssembly.teleop();
+		SuckingAssembly.teleop();
 		Joysticks.update_data();
 		UpAssembly.teleop();
 		ClimbAssembly.teteop();
