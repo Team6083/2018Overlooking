@@ -24,6 +24,24 @@ public class DriveBase {
 		Rmotor2 = new VictorSP(Rmotor2_Port);
 		speedDown = 2.0;
 	}
+	
+	public static void arcadeDrive() {
+		if(Joysticks.b && (Joysticks.b!=lastButton)) {
+			reverseDrive = !reverseDrive;
+		}
+		
+		lastButton = Joysticks.b;
+		
+		double left = Joysticks.xa - Joysticks.ya;
+		double right = Joysticks.xa + Joysticks.ya;
+		left = left / speedDown;
+		right = right / speedDown;
+		
+		Lmotor1.set(left);
+		Lmotor2.set(left);
+		Rmotor1.set(right);
+		Rmotor2.set(right);
+	}
 
 	public static void tankDrive() {
 		if(Joysticks.b && (Joysticks.b!=lastButton)) {

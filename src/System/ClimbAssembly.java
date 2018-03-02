@@ -20,14 +20,15 @@ public class ClimbAssembly {
 	public static void teteop() {
 		if (Joysticks.pov == 0) {
 			stringtalon.set(ControlMode.PercentOutput, -1);
-		} else if (Joysticks.pov == 180) {
+		} 
+		else if (Joysticks.pov == 180) {
 			stringtalon.set(ControlMode.PercentOutput, 1);
 		}
 		else if(Joysticks.pov == 90) {
-			climbmotor.set(-0.25);
+			climbmotor.set(-0.4);
 		}
 		else if(Joysticks.pov == 270) {
-			climbmotor.set(0.25);
+			climbmotor.set(0.4);
 		}
 		
 		else {
