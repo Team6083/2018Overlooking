@@ -6,19 +6,19 @@ import System.Autonomous.AutoEngine;
 public class Switch extends AutoEngine {
 	
 	static double[] walk1 = {-120,0,-120};
-	static double[] walk2 = {23,135,23};
+	static double[] walk2 = {18,135,18};
 	static double walk3 = 3;
 	
 	static boolean first = false;
 	
 	public static void loop() {
 		switch (step) {
-		case 1:
+		case 0:
 			currentStep = "Walk1";
 			walk(walk1[station-1]);
 			gyrowalker.setTargetAngle(0);
 			break;
-			case 2:
+			case 1:
 			currentStep = "Set Turn1";
 			leftSpeed = 0;
 			rightSpeed = 0;
@@ -30,7 +30,7 @@ public class Switch extends AutoEngine {
 			}
 			nextStep();
 			break;
-			case 3:
+			case 2:
 			currentStep = "Turn1";
 			leftSpeed = 0;
 			rightSpeed = 0;
@@ -38,12 +38,12 @@ public class Switch extends AutoEngine {
 				nextStep();
 			}
 			break;
-		case 4:
+		case 3:
 			currentStep = "Set Raise Up";
 			UpAssembly.moveStep(1);
 			nextStep();
 			break;
-		case 5:
+		case 4:
 			currentStep = "Raise Up";
 			leftSpeed = 0;
 			rightSpeed = 0;
@@ -56,11 +56,11 @@ public class Switch extends AutoEngine {
 			break;
 		
 		
-		case 6:
+		case 5:
 			currentStep = "Walk2";
 			walk(walk2[station-1]);
 			break;
-		case 7:
+		case 6:
 			currentStep = "Set Turn 2";
 			if(station != 2) step = -1;
 			else {
@@ -70,7 +70,7 @@ public class Switch extends AutoEngine {
 			leftSpeed = 0;
 			rightSpeed = 0;
 			break;
-		case 8:
+		case 7:
 			currentStep = "Turn 2";
 			leftSpeed = 0;
 			rightSpeed = 0;
@@ -123,38 +123,5 @@ public class Switch extends AutoEngine {
 			break;
 		}
 	}
-public static void walk(double dis) {
-if(dis>0) {
-	if (leftDistance < dis) {
-		leftSpeed = 0.4;
-	} else {
-		leftSpeed = 0;
-	}
-	if (rightDistance < dis) {
-		rightSpeed = 0.4;
-	} else {
-		rightSpeed = 0;
-	}
-	if (rightDistance > dis && leftDistance > dis) {
-	nextStep();
-	
-}
-}else {
-	if (leftDistance > dis) {
-		leftSpeed = -0.4;
-	} else {
-		leftSpeed = 0;
-	}
-	if (rightDistance > dis) {
-		rightSpeed = -0.4;
-	} else {
-		rightSpeed = 0;
-	}
-	if (rightDistance < dis && leftDistance < dis) {
-		nextStep();
-		
-	}
-}
 
-}
 }

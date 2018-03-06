@@ -25,7 +25,7 @@ public class AutoEngine {
 	protected static int station;
 	
 	protected static String gameData;
-	protected static int switchPos;
+	protected static int switchPos,scalePos;
 	
 	protected static SendableChooser<String> m_chooser = new SendableChooser<>();
 	protected static SendableChooser<String> a_chooser = new SendableChooser<>();
@@ -95,8 +95,9 @@ public class AutoEngine {
 			station = 1;
 			break;
 		}
-		
+
 		switchPos = (gameData.charAt(0) == 'L')?1:2;
+		scalePos = (gameData.charAt(1) == 'L')?1:2;
 //		SmartDashboard.putNumber("Target Angle", 0);
 	}
 
@@ -145,4 +146,38 @@ public class AutoEngine {
 		leftEnc.reset();
 		rightEnc.reset();
 	}
+	public static void walk(double dis) {
+		if(dis>0) {
+			if (leftDistance < dis) {
+				leftSpeed = 0.4;
+			} else {
+				leftSpeed = 0;
+			}
+			if (rightDistance < dis) {
+				rightSpeed = 0.4;
+			} else {
+				rightSpeed = 0;
+			}
+			if (rightDistance > dis && leftDistance > dis) {
+			nextStep();
+			
+		}
+		}else {
+			if (leftDistance > dis) {
+				leftSpeed = -0.4;
+			} else {
+				leftSpeed = 0;
+			}
+			if (rightDistance > dis) {
+				rightSpeed = -0.4;
+			} else {
+				rightSpeed = 0;
+			}
+			if (rightDistance < dis && leftDistance < dis) {
+				nextStep();
+				
+			}
+		}
+
+		}
 }
