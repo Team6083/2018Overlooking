@@ -16,30 +16,13 @@ public class Baseline extends AutoEngine {
 			break;
 		case 1:
 			currentStep = "Raise Up";
-			if (UpAssembly.isReachTarget())
-				nextStep();
+			if (UpAssembly.isReachTarget())nextStep();
 			leftSpeed = 0;
 			rightSpeed = 0;
 			break;
 		case 2:
 			currentStep = "Go foward";
-			if(baseLineDis<0) {
-				if (rightDistance < baseLineDis && leftDistance < baseLineDis) {
-					nextStep();
-				}
-				
-				if (leftDistance > baseLineDis) {
-					leftSpeed = -0.4;
-				} else {
-					leftSpeed = 0;
-				}
-
-				if (rightDistance > baseLineDis) {
-					rightSpeed = -0.4;
-				} else {
-					rightSpeed = 0;
-				}	
-			}
+			walk(baseLineDis);
 			break;
 		default:
 			currentStep = "none";
