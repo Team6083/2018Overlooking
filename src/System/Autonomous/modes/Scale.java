@@ -1,5 +1,6 @@
 package System.Autonomous.modes;
 
+import System.SuckingAssembly;
 import System.UpAssembly;
 import System.Autonomous.AutoEngine;
 
@@ -42,6 +43,16 @@ public class Scale extends AutoEngine {
 			leftSpeed = 0;
 			rightSpeed = 0;
 				if (UpAssembly.isReachTarget()) nextStep();
+			break;
+		case 5:
+			currentStep = "Put Cube";
+			leftSpeed = 0;
+			rightSpeed = 0;
+			if(!SuckingAssembly.isPut()) {
+				SuckingAssembly.put();
+			}else {
+				nextStep();
+			}
 			break;
 		default:
 			currentStep = "none";

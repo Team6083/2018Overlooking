@@ -159,6 +159,8 @@ public class AutoEngine {
 				rightSpeed = 0;
 			}
 			if (rightDistance > dis && leftDistance > dis) {
+
+				gyrowalker.setTargetAngle(0);
 			nextStep();
 			
 		}
@@ -174,6 +176,8 @@ public class AutoEngine {
 				rightSpeed = 0;
 			}
 			if (rightDistance < dis && leftDistance < dis) {
+
+				gyrowalker.setTargetAngle(0);
 				nextStep();
 				
 			}

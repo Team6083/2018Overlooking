@@ -17,11 +17,14 @@ public class SuckingAssembly {
 	
 	private static VictorSP motor1, motor2;
 	private static RobotPower power1, power2;
-	
+
 	private static Timer collectTimer = new Timer();
+	private static Timer putTimer = new Timer();
 	private static double collectTime = 5;
+	private static double puttime=0;
 	
 	private static boolean collect = false;
+	private static boolean put_start=false,put_finish=false;
 	
 	public static void init() {
 		motor1 = new VictorSP(motor1_Port);
@@ -73,5 +76,20 @@ public class SuckingAssembly {
 	public static void stop() {
 		motor1.set(0);
 		motor2.set(0);
+	}
+	public static void put() {
+		
+		if(!put_start) {
+			putTimer.start();
+			put_start=true;
+		}
+		puttime=putTimer.get();
+		motor1.set(puttime<1?speed:0);
+		motor2.set(puttime<1?-speed:0);
+		put_finish=puttime<1?false:true;
+	}
+
+	public static boolean isPut() {
+		return (put_finish)?true:false;
 	}
 }

@@ -1,5 +1,6 @@
 package System.Autonomous.modes;
 
+import System.SuckingAssembly;
 import System.UpAssembly;
 import System.Autonomous.AutoEngine;
 
@@ -16,7 +17,6 @@ public class Switch extends AutoEngine {
 		case 0:
 			currentStep = "Walk1";
 			walk(walk1[station-1]);
-			gyrowalker.setTargetAngle(0);
 			break;
 			case 1:
 			currentStep = "Set Turn1";
@@ -89,7 +89,19 @@ public class Switch extends AutoEngine {
 				autoTimer.reset();
 				first = false;
 			}
-			break;/*
+			break;
+		case 8:
+			currentStep = "Put Cube";
+			leftSpeed = 0;
+			rightSpeed = 0;
+			if(!SuckingAssembly.isPut()) {
+				SuckingAssembly.put();
+			}else {
+				nextStep();
+			}
+			break;
+			/*
+			
 		case 8:
 			currentStep = "stop before walk3";
 			if(autoTimer.get()>3) nextStep();
