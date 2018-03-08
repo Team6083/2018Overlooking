@@ -9,7 +9,7 @@ public class Baseline extends AutoEngine {
 
 	public static void loop() {
 		switch (step) {
-		case 0:
+		/*case 0:
 			currentStep = "Set Raise Up";
 			 UpAssembly.moveStep(1);
 			nextStep();
@@ -19,11 +19,28 @@ public class Baseline extends AutoEngine {
 			if (UpAssembly.isReachTarget())nextStep();
 			leftSpeed = 0;
 			rightSpeed = 0;
+			break;*/
+		case 0:
+			currentStep = "Go forward";
+			if(station!=2) {
+				walk(baseLineDis);
+				step=-1;
+			}else {
+				gyrowalker.setTargetAngle(switchPos==1?-155:155);
+			}
+			nextStep();
 			break;
-		case 2:
-			currentStep = "Go foward";
-			walk(baseLineDis);
+			case 1:
+			currentStep = "Turn1";
+			leftSpeed = 0;
+			rightSpeed = 0;
+			if(gyrowalker.getErrorAngle() < 10) {
+				nextStep();
+			}
 			break;
+			case 2:
+				currentStep = "walk";
+				walk(135);
 		default:
 			currentStep = "none";
 			leftSpeed = 0;

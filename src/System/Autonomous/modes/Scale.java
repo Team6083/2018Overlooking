@@ -18,14 +18,15 @@ public class Scale extends AutoEngine {
 			leftSpeed = 0;
 			rightSpeed = 0;
 			if(station == 1&&scalePos==1) {
-				gyrowalker.setTargetAngle(-88);
+				gyrowalker.setTargetAngle(-87);
 				nextStep();
 			}
 			else if(station == 3&&scalePos==2){
-				gyrowalker.setTargetAngle(88);
+				gyrowalker.setTargetAngle(87);
 				nextStep();
 			}else {
-				walk(180);
+				gyrowalker.setTargetAngle(180);
+				walk(100);
 				step=-1;
 			}
 			break;

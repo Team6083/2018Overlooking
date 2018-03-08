@@ -16,14 +16,19 @@ public class Switch extends AutoEngine {
 		switch (step) {
 		case 0:
 			currentStep = "Walk1";
+			if((station ==1&&switchPos==2)||(station==3&&switchPos==1)) {
+				walk(-120);
+				step=-1;
+			}else {
 			walk(walk1[station-1]);
+			}
 			break;
 			case 1:
 			currentStep = "Set Turn1";
 			leftSpeed = 0;
 			rightSpeed = 0;
 			if(station == 2) {
-				gyrowalker.setTargetAngle((switchPos == 1)?156:-156);
+				gyrowalker.setTargetAngle((switchPos == 1)?155:-155);
 			}
 			else {
 				gyrowalker.setTargetAngle((switchPos == 1)?90:-90);
@@ -62,7 +67,7 @@ public class Switch extends AutoEngine {
 			break;
 		case 6:
 			currentStep = "Set Turn 2";
-			if(station != 2) step = -1;
+			if(station != 2) step = 8;
 			else {
 				gyrowalker.setTargetAngle(0);
 				nextStep();
