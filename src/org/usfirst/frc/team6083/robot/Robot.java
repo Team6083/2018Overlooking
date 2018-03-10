@@ -47,7 +47,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
-	public void autonomousInit() {
+	public void autonomousInit() {/*
 		servo.set(0);
 		Timer.delay(1);
 		servo.set(1);
@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
 		Timer.delay(0.2);
 		servo.set(0);
 		Timer.delay(0.2);
-		servo.set(1);
+		servo.set(1);*/
 		AutoEngine.start();
 	}
 
