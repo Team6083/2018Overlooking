@@ -6,8 +6,8 @@ import System.Autonomous.AutoEngine;
 
 public class Switch extends AutoEngine {
 
-	static double[] walk1 = { 120, 0, 120 };
-	static double[] walk2 = {20 , 135, 20 };
+	static double[] walk1 = { 146, 0, 146 };
+	static double[] walk2 = {40 , 135, 40 };
 	static double walk3 = 3;
 
 	static boolean first = false;

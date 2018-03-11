@@ -18,11 +18,11 @@ public class Scale extends AutoEngine {
 			leftSpeed = 0;
 			rightSpeed = 0;
 			if(station == 1&&scalePos==1) {
-				gyrowalker.setTargetAngle(13);
+				gyrowalker.setTargetAngle(12);
 				nextStep();
 			}
 			else if(station == 3&&scalePos==2){
-				gyrowalker.setTargetAngle(-13);
+				gyrowalker.setTargetAngle(-12);
 				nextStep();
 			}else {
 				gyrowalker.setTargetAngle(0);
@@ -32,7 +32,7 @@ public class Scale extends AutoEngine {
 			break;
 		case 2:
 			currentStep = "Walk2";
-			walk(169);
+			walk(170);
 			break;
 		case 3:
 			currentStep = "Set Raise Up";
