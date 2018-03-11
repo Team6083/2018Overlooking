@@ -68,6 +68,7 @@ public class AutoEngine {
 		leftEnc.setReverseDirection(true);
 		rightEnc = new Encoder(rightEnc_ChA, rightEnc_ChB);
 		rightEnc.setReverseDirection(false);
+		SmartDashboard.putNumber("autoDelay", 0);
 	}
 
 	public static void start() {
@@ -98,6 +99,7 @@ public class AutoEngine {
 
 		switchPos = (gameData.charAt(0) == 'L')?1:2;
 		scalePos = (gameData.charAt(1) == 'L')?1:2;
+		Timer.delay(SmartDashboard.getNumber("autoDelay", 0));
 //		SmartDashboard.putNumber("Target Angle", 0);
 	}
 
