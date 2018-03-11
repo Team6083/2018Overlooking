@@ -5,7 +5,7 @@ import System.Autonomous.AutoEngine;
 
 public class Baseline extends AutoEngine {
 
-	private static final double baseLineDis = -120;// In inch
+	private static final double baseLineDis = 120;// In inch
 
 	public static void loop() {
 		switch (step) {
@@ -19,8 +19,8 @@ public class Baseline extends AutoEngine {
 			if (station != 2) {
 				walk(baseLineDis);
 			} else {
-				gyrowalker.setTargetAngle(switchPos == 1 ? -155 : 155);
-				walk(-140);
+				gyrowalker.setTargetAngle(switchPos == 1 ? -24 : 24);
+				walk(150);
 			}
 			break;
 		case 1:
@@ -37,7 +37,7 @@ public class Baseline extends AutoEngine {
 			break;
 		case 2:
 			currentStep = "walk";
-			walk(135);
+			walk(140);
 			break;
 		default:
 			currentStep = "none";

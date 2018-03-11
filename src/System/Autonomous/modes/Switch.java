@@ -6,7 +6,7 @@ import System.Autonomous.AutoEngine;
 
 public class Switch extends AutoEngine {
 
-	static double[] walk1 = { -150, 0, -150 };
+	static double[] walk1 = { 120, 0, 120 };
 	static double[] walk2 = {20 , 135, 20 };
 	static double walk3 = 3;
 
@@ -17,7 +17,7 @@ public class Switch extends AutoEngine {
 		case 0:
 			currentStep = "Walk1";
 			if ((station == 1 && switchPos == 2) || (station == 3 && switchPos == 1)) {
-				walk(-120);
+				walk(120);
 				step = -1;
 			} else {
 				walk(walk1[station - 1]);
@@ -28,9 +28,9 @@ public class Switch extends AutoEngine {
 			leftSpeed = 0;
 			rightSpeed = 0;
 			if (station == 2) {
-				gyrowalker.setTargetAngle((switchPos == 1) ? 155 : -155);
+				gyrowalker.setTargetAngle((switchPos == 1) ? -23 : 24);
 			} else {
-				gyrowalker.setTargetAngle((switchPos == 1) ? -90 : 90);
+				gyrowalker.setTargetAngle((switchPos == 1) ? 90 : -90);
 			}
 			nextStep();
 			break;
