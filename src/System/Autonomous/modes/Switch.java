@@ -18,13 +18,16 @@ public class Switch extends AutoEngine {
 			currentStep = "Walk1";
 			if ((station == 1 && switchPos == 2) || (station == 3 && switchPos == 1)) {
 				walk(120);
-				step = -1;
 			} else {
 				walk(walk1[station - 1]);
 			}
 			break;
 		case 1:
 			currentStep = "Set Turn1";
+			if((station == 1 && switchPos == 2) || (station == 3 && switchPos == 1)) {
+				step = -1;
+				break;
+			}
 			leftSpeed = 0;
 			rightSpeed = 0;
 			if (station == 2) {
