@@ -106,7 +106,7 @@ public class AutoEngine {
 	public static void loop() {
 		SmartDashboard.putNumber("drive/gyro/angle", GyroWalker.translateAngle(gyro.getAngle()));
 		leftDistance = leftEnc.getDistance() * disPerStep;
-		rightDistance = rightEnc.getDistance() * disPerStep * 2;
+		rightDistance = rightEnc.getDistance() * disPerStep;
 
 		switch (m_autoSelected) {
 		case kSwitch:

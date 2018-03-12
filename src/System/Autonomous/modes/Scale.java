@@ -27,11 +27,13 @@ public class Scale extends AutoEngine {
 			}else {
 				gyrowalker.setTargetAngle(0);
 				walk(70);
-				step=-1;
 			}
 			break;
 		case 2:
 			currentStep = "Walk2";
+			if(!((station == 1&&scalePos==1)||(station == 3&&scalePos==2)))  {
+				step=-1;
+			}
 			walk(170);
 			break;
 		case 3:
