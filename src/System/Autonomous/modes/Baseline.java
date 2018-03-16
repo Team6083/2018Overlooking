@@ -16,27 +16,11 @@ public class Baseline extends AutoEngine {
 		 */
 		case 0:
 			currentStep = "Go forward";
-			if (station != 2) {
 				walk(baseLineDis);
-			} else {
-				gyrowalker.setTargetAngle(switchPos == 1 ? -24 : 24);
-			}
 			break;
 		case 1:
-			currentStep = "Turn1";
-			if(station != 2) {
+			currentStep = "Finished";
 				step = -1;
-				break;
-			}
-			leftSpeed = 0;
-			rightSpeed = 0;
-			if (gyrowalker.getErrorAngle() < 10) {
-				nextStep();
-			}
-			break;
-		case 2:
-			currentStep = "walk";
-			walk(150);
 			break;
 		default:
 			currentStep = "none";
