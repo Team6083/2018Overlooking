@@ -1,6 +1,5 @@
 package System.Autonomous.modes;
 
-import System.UpAssembly;
 import System.Autonomous.AutoEngine;
 
 public class Baseline extends AutoEngine {
