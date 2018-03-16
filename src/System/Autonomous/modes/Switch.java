@@ -29,6 +29,9 @@ public class Switch extends AutoEngine {
 			if (station != 2) {
 				gyrowalker.setTargetAngle((switchPos == 1) ? 90 : -90);
 			}
+			else {
+				gyrowalker.setTargetAngle(0);
+			}
 			nextStep();
 			break;
 		case 2:

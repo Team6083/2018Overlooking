@@ -101,6 +101,7 @@ public class AutoEngine {
 		scalePos = (gameData.charAt(1) == 'L') ? 1 : 2;
 		Timer.delay(SmartDashboard.getNumber("autoDelay", 0));
 		// SmartDashboard.putNumber("Target Angle", 0);
+		gyrowalker.setTargetAngle(0);
 	}
 
 	public static void loop() {
