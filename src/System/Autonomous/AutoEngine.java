@@ -120,6 +120,7 @@ public class AutoEngine {
 			break;
 		case kDoNithing:
 		default:
+			currentStep = "DoNothing";
 			leftSpeed = 0;
 			rightSpeed = 0;
 			gyrowalker.setTargetAngle(0);
@@ -143,8 +144,10 @@ public class AutoEngine {
 
 	protected static void nextStep() {
 		step++;
+		System.out.println("Finish step:"+currentStep);
 		autoTimer.stop();
 		autoTimer.reset();
+		System.out.println("Encoder reset on "+ leftDistance +", "+ rightDistance);
 		leftEnc.reset();
 		rightEnc.reset();
 	}
@@ -161,8 +164,9 @@ public class AutoEngine {
 			} else {
 				rightSpeed = 0;
 			}
-			if (rightDistance > dis && leftDistance > dis) {
-
+			if (rightDistance > dis || leftDistance > dis) {
+				rightSpeed = 0;
+				leftSpeed = 0;
 				gyrowalker.setTargetAngle(0);
 				nextStep();
 
@@ -178,8 +182,9 @@ public class AutoEngine {
 			} else {
 				rightSpeed = 0;
 			} 
-			if (rightDistance < dis && leftDistance < dis) {
-
+			if (rightDistance < dis || leftDistance < dis) {
+				rightSpeed = 0;
+				leftSpeed = 0;
 				gyrowalker.setTargetAngle(0);
 				nextStep();
 

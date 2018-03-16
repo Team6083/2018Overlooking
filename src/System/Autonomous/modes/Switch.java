@@ -6,8 +6,8 @@ import System.Autonomous.AutoEngine;
 
 public class Switch extends AutoEngine {
 
-	static double[] walk1 = { 146, 0, 146 };
-	static double[] walk2 = {40 , 135, 40 };
+	static double[] walk1 = { 135, 40, 135 };
+	static double[] walk2 = { 20 , 50, 20 };
 	static double walk3 = 3;
 
 	static boolean first = false;
@@ -16,11 +16,7 @@ public class Switch extends AutoEngine {
 		switch (step) {
 		case 0:
 			currentStep = "Walk1";
-			if ((station == 1 && switchPos == 2) || (station == 3 && switchPos == 1)) {
-				walk(120);
-			} else {
-				walk(walk1[station - 1]);
-			}
+			walk(walk1[station - 1]);
 			break;
 		case 1:
 			currentStep = "Set Turn1";
@@ -30,9 +26,7 @@ public class Switch extends AutoEngine {
 			}
 			leftSpeed = 0;
 			rightSpeed = 0;
-			if (station == 2) {
-				gyrowalker.setTargetAngle((switchPos == 1) ? -23 : 24);
-			} else {
+			if (station != 2) {
 				gyrowalker.setTargetAngle((switchPos == 1) ? 90 : -90);
 			}
 			nextStep();
@@ -47,65 +41,100 @@ public class Switch extends AutoEngine {
 			break;
 		case 3:
 			currentStep = "Set Raise Up";
-			UpAssembly.moveStep(1);
+			if(switchPos == 2) {
+				UpAssembly.moveStep(1);
+			}
 			nextStep();
 			break;
 		case 4:
 			currentStep = "Raise Up";
-			leftSpeed = 0;
-			rightSpeed = 0;
-			if (station == 2) {
-				if (UpAssembly.isReachTarget())
-					nextStep();
-			} else {
+			if(UpAssembly.isReachTarget()) {
 				nextStep();
 			}
 			break;
-
 		case 5:
-			currentStep = "Walk2";
-			walk(walk2[station - 1]);
+			currentStep = "walk2";
+			walk(walk2[station-1]);
 			break;
 		case 6:
-			currentStep = "Set Turn 2";
-			if (station != 2)
-				step = 8;
-			else {
-				gyrowalker.setTargetAngle(0);
-				nextStep();
-			}
-			leftSpeed = 0;
-			rightSpeed = 0;
-			break;
-		case 7:
-			currentStep = "Turn 2";
-			leftSpeed = 0;
-			rightSpeed = 0;
-			if (gyrowalker.getErrorAngle() < 10) {
-				if (!first) {
-					autoTimer.start();
-					first = true;
-				}
-				if (autoTimer.get() > 1) {
-					nextStep();
-					autoTimer.start();
-				}
-			} else {
-				autoTimer.stop();
-				autoTimer.reset();
-				first = false;
-			}
-			break;
-		case 8:
 			currentStep = "Put Cube";
 			leftSpeed = 0;
 			rightSpeed = 0;
-			if (!SuckingAssembly.isPut()) {
-				SuckingAssembly.put();
-			} else {
+			if(switchPos == 2) {
+				if (!SuckingAssembly.isPut()) {
+					SuckingAssembly.put();
+				} else {
+					nextStep();
+				}
+			}
+			else {
 				nextStep();
 			}
 			break;
+		case 8:
+			currentStep = "Finished";
+			break;
+			/*
+			currentStep = "Set Raise Up";
+			
+			nextStep();
+			break;*/
+//		case 5:
+//			currentStep = "Raise Up";
+//			leftSpeed = 0;
+//			rightSpeed = 0;
+//			if (station == 2) {
+//				if (UpAssembly.isReachTarget())
+//					nextStep();
+//			} else {
+//				nextStep();
+//			}
+//			break;
+//
+//		case 6:
+//			currentStep = "Walk2";
+//			walk(walk2[station - 1]);
+//			break;
+//		case 7:
+//			currentStep = "Set Turn 2";
+//			if (station != 2)
+//				step = 8;
+//			else {
+//				gyrowalker.setTargetAngle(0);
+//				nextStep();
+//			}
+//			leftSpeed = 0;
+//			rightSpeed = 0;
+//			break;
+//		case 8:
+//			currentStep = "Turn 2";
+//			leftSpeed = 0;
+//			rightSpeed = 0;
+//			if (gyrowalker.getErrorAngle() < 10) {
+//				if (!first) {
+//					autoTimer.start();
+//					first = true;
+//				}
+//				if (autoTimer.get() > 1) {
+//					nextStep();
+//					autoTimer.start();
+//				}
+//			} else {
+//				autoTimer.stop();
+//				autoTimer.reset();
+//				first = false;
+//			}
+//			break;
+//		case 9:
+//			currentStep = "Put Cube";
+//			leftSpeed = 0;
+//			rightSpeed = 0;
+//			if (!SuckingAssembly.isPut()) {
+//				SuckingAssembly.put();
+//			} else {
+//				nextStep();
+//			}
+//			break;
 		/*
 		 * 
 		 * case 8: currentStep = "stop before walk3"; if(autoTimer.get()>3) nextStep();
