@@ -77,7 +77,7 @@ public class AutoEngine {
 		// defaultAuto);
 		allianceSelected = a_chooser.getSelected();
 		System.out.println("Auto selected: " + m_autoSelected + " on " + allianceSelected);
-
+		gyro.reset();
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		step = 0;
 		leftSpeed = 0;
