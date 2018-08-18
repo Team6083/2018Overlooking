@@ -11,20 +11,15 @@ import System.ClimbAssembly;
 import System.SuckingAssembly;
 import System.DriveBase;
 import System.Joysticks;
-import System.Lightning;
 import System.RobotPower;
 import System.UpAssembly;
 import System.Autonomous.AutoEngine;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
-	Joystick stick = new Joystick(0);
-	Lightning led1;
 
 	final double disPerStep = 0.133;
 	Servo servo = new Servo(6);
@@ -38,7 +33,7 @@ public class Robot extends IterativeRobot {
 		RobotPower.init();
 		Joysticks.init();
 		ClimbAssembly.init();
-//		led1 = new Lightning(2);
+		//Initialize all system
 		
 		CameraServer.getInstance().addAxisCamera("axis-camera2", "axis-camera2.local");
 	}
@@ -56,6 +51,8 @@ public class Robot extends IterativeRobot {
 		servo.set(0);
 		Timer.delay(0.2);
 		servo.set(1);
+		//Push rope to release claw
+		
 		AutoEngine.start();
 	}
 
@@ -66,7 +63,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		SmartDashboard.putNumber("servo", 0);
+		
 	}
 
 	@Override
@@ -76,11 +73,6 @@ public class Robot extends IterativeRobot {
 		Joysticks.update_data();
 		UpAssembly.teleop();
 		ClimbAssembly.teteop();
-		if (SmartDashboard.getBoolean("drive/reverse", false)) {
-//			led1.setBrightness(1);
-		} else {
-//			led1.setBrightness(0);
-		}
 		
 		if(Joysticks.a) {
 			servo.set(0);

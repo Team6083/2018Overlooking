@@ -31,17 +31,21 @@ public class UpAssembly {
 	
 	public static void teleop() {
 		if (Joysticks.lt > 0.1) {
-		UPmotor.set(ControlMode.PercentOutput, Joysticks.lt * 0.75);
+			//go up
+			UPmotor.set(ControlMode.PercentOutput, Joysticks.lt * 0.75);
 			targetStep = UpEnc.get();
 		} else if (Joysticks.rt > 0.1) {
+			//go down
 			UPmotor.set(ControlMode.PercentOutput, -Joysticks.rt);
 			targetStep = UpEnc.get();
 		} else {
+			//hold when not pressed
 			if(!SmartDashboard.getBoolean("Up/HoldOverride", false)) {
 				UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
 			}
 		}
 		
+		//moving to preset point
 		if(Joysticks.back && Joysticks.getRealeased(7) && steps_index > 0) {
 			steps_index--;
 			targetStep = set_steps[steps_index];

@@ -73,8 +73,6 @@ public class AutoEngine {
 
 	public static void start() {
 		m_autoSelected = m_chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
 		allianceSelected = a_chooser.getSelected();
 		System.out.println("Auto selected: " + m_autoSelected + " on " + allianceSelected);
 		gyro.reset();
@@ -100,7 +98,6 @@ public class AutoEngine {
 		switchPos = (gameData.charAt(0) == 'L') ? 1 : 2;
 		scalePos = (gameData.charAt(1) == 'L') ? 1 : 2;
 		Timer.delay(SmartDashboard.getNumber("autoDelay", 0));
-		// SmartDashboard.putNumber("Target Angle", 0);
 		gyrowalker.setTargetAngle(0);
 	}
 
