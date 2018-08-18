@@ -105,7 +105,7 @@ public class AutoEngine {
 	}
 
 	public static void loop() {
-		SmartDashboard.putNumber("drive/gyro/angle", GyroWalker.translateAngle(gyro.getAngle()));
+		SmartDashboard.putNumber("Gyro/angle", GyroWalker.translateAngle(gyro.getAngle()));
 		leftDistance = leftEnc.getDistance() * disPerStep;
 		rightDistance = rightEnc.getDistance() * disPerStep;
 
@@ -125,7 +125,6 @@ public class AutoEngine {
 			leftSpeed = 0;
 			rightSpeed = 0;
 			gyrowalker.setTargetAngle(0);
-			// gyrowalker.setTargetAngle(SmartDashboard.getNumber("Target Angle", 0));
 			break;
 		}
 		UpAssembly.autoLoop();
@@ -135,7 +134,7 @@ public class AutoEngine {
 		rightSpeed = gyrowalker.getRightPower();
 		DriveBase.directControl(leftSpeed, -rightSpeed);
 
-		SmartDashboard.putString("currentStep", currentStep);
+		SmartDashboard.putString("CurrentStep", currentStep);
 		SmartDashboard.putNumber("Current Angle", gyrowalker.getCurrentAngle());
 		SmartDashboard.putNumber("Error Angle", gyrowalker.getErrorAngle());
 		SmartDashboard.putNumber("Left Dis", leftDistance);
