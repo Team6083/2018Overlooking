@@ -26,6 +26,7 @@ public class UpAssembly {
 		gain = 0.005;
 		targetStep = 0;
 		steps_index = 0;
+		SmartDashboard.putBoolean("Up/HoldOverride", false);
 	}
 	
 	public static void teleop() {
@@ -36,7 +37,9 @@ public class UpAssembly {
 			UPmotor.set(ControlMode.PercentOutput, -Joysticks.rt);
 			targetStep = UpEnc.get();
 		} else {
-			UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
+			if(!SmartDashboard.getBoolean("Up/HoldOverride", false)) {
+				UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
+			}
 		}
 		
 		if(Joysticks.back && Joysticks.getRealeased(7) && steps_index > 0) {
