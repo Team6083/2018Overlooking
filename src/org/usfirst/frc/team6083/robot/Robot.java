@@ -8,6 +8,7 @@
 package org.usfirst.frc.team6083.robot;
 
 import System.ClimbAssembly;
+import System.Dashboard;
 import System.SuckingAssembly;
 import System.DriveBase;
 import System.Joysticks;
@@ -33,6 +34,7 @@ public class Robot extends IterativeRobot {
 		RobotPower.init();
 		Joysticks.init();
 		ClimbAssembly.init();
+		Dashboard.init();
 		//Initialize all system
 		
 		CameraServer.getInstance().addAxisCamera("axis-camera2", "axis-camera2.local");
@@ -68,6 +70,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
+		Dashboard.teleop();
 		DriveBase.tankDrive();
 		SuckingAssembly.teleop();
 		Joysticks.update_data();

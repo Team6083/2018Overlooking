@@ -189,4 +189,8 @@ public class AutoEngine {
 		}
 
 	}
+	
+	public static double getTranslateAngle() {
+		return GyroWalker.translateAngle(gyro.getAngle());
+	}
 }
