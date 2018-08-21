@@ -23,6 +23,9 @@ public class DriveBase {
 		Rmotor1 = new VictorSP(Rmotor1_Port);
 		Rmotor2 = new VictorSP(Rmotor2_Port);
 		speedDown = 2.0;
+		SmartDashboard.putBoolean("drive/reverse", false);
+		SmartDashboard.putNumber("drive/leftSpeed", 0);
+		SmartDashboard.putNumber("drive/rightSpeed", 0);
 	}
 	
 	public static void arcadeDrive() {
@@ -66,10 +69,10 @@ public class DriveBase {
 		reverseDrive = SmartDashboard.getBoolean("drive/reverse", reverseDrive);
 		
 		
-		if (Joysticks.lb) {
+		if (Joysticks.lab) {
 			left = left * 2;
 		}
-		if (Joysticks.rb) {
+		if (Joysticks.rab) {
 			right = right * 2;
 		}
 
