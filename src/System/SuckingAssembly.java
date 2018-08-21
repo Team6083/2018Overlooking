@@ -34,6 +34,7 @@ public class SuckingAssembly {
 		
 		SmartDashboard.putNumber("Cube/current1", 0);
 		SmartDashboard.putNumber("Cube/current2", 0);
+		Dashboard.partReady("Cube");
 	}
 
 	public static void teleop() {

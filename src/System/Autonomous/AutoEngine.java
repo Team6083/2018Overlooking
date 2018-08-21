@@ -2,6 +2,7 @@ package System.Autonomous;
 
 import System.DriveBase;
 import System.UpAssembly;
+import System.Dashboard;
 import System.Autonomous.modes.*;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -62,13 +63,18 @@ public class AutoEngine {
 		SmartDashboard.putData("Auto point choices", a_chooser);
 
 		gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+		Dashboard.partWarning("Gyro");
 		gyro.calibrate();
+		Dashboard.partReady("Gyro");
 		gyrowalker = new GyroWalker(gyro);
 		leftEnc = new Encoder(leftEnc_ChA, leftEnc_ChB);
 		leftEnc.setReverseDirection(true);
 		rightEnc = new Encoder(rightEnc_ChA, rightEnc_ChB);
 		rightEnc.setReverseDirection(false);
 		SmartDashboard.putNumber("autoDelay", 0);
+		SmartDashboard.putString("CurrentStep", "wait to start");
+		
+		Dashboard.partReady("AutoEngine");
 	}
 
 	public static void start() {

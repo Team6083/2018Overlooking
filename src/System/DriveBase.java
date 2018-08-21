@@ -26,6 +26,7 @@ public class DriveBase {
 		SmartDashboard.putBoolean("drive/reverse", false);
 		SmartDashboard.putNumber("drive/leftSpeed", 0);
 		SmartDashboard.putNumber("drive/rightSpeed", 0);
+		Dashboard.partReady("drive");
 	}
 	
 	public static void arcadeDrive() {
