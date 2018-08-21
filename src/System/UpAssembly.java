@@ -26,7 +26,11 @@ public class UpAssembly {
 		gain = 0.005;
 		targetStep = 0;
 		steps_index = 0;
+		
 		SmartDashboard.putBoolean("Up/HoldOverride", false);
+		SmartDashboard.putNumber("Up/Enc", UpEnc.get());
+		SmartDashboard.putNumber("Up/targetStep", targetStep);
+		SmartDashboard.putNumber("Up/motorOutPut", UPmotor.getMotorOutputPercent());
 	}
 	
 	public static void teleop() {
@@ -42,6 +46,9 @@ public class UpAssembly {
 			//hold when not pressed
 			if(!SmartDashboard.getBoolean("Up/HoldOverride", false)) {
 				UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
+			}
+			else {
+				UPmotor.set(ControlMode.PercentOutput, 0);
 			}
 		}
 		
