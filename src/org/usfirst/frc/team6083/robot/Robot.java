@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 		Dashboard.init();
 		//Initialize all system
 		
-		CameraServer.getInstance().addAxisCamera("axis-camera2", "axis-camera2.local");
+		CameraServer.getInstance().addAxisCamera("axis-camera1", "axis-camera1.local");
 	}
 
 	@Override
@@ -54,6 +54,7 @@ public class Robot extends IterativeRobot {
 		Timer.delay(0.2);
 		servo.set(1);
 		//Push rope to release claw
+		System.out.println("Claw deployed");
 		
 		AutoEngine.start();
 	}

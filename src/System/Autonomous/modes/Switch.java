@@ -20,7 +20,7 @@ public class Switch extends AutoEngine {
 			break;
 		case 1:
 			currentStep = "Set Turn1";
-			if((station == 1 && switchPos == 2) || (station == 3 && switchPos == 1)) {
+			if((station == 1 && switchPos == 2) || (station == 3 && switchPos == 1) || switchPos == 0) {
 				step = -1;
 				break;
 			}
@@ -44,9 +44,7 @@ public class Switch extends AutoEngine {
 			break;
 		case 3:
 			currentStep = "Set Raise Up";
-			if(switchPos == 2) {
-				UpAssembly.moveStep(1);
-			}
+			UpAssembly.moveStep(1);
 			nextStep();
 			break;
 		case 4:
@@ -63,14 +61,9 @@ public class Switch extends AutoEngine {
 			currentStep = "Put Cube";
 			leftSpeed = 0;
 			rightSpeed = 0;
-			if(switchPos == 2) {
-				if (!SuckingAssembly.isPut()) {
-					SuckingAssembly.put();
-				} else {
-					nextStep();
-				}
-			}
-			else {
+			if (!SuckingAssembly.isPut()) {
+				SuckingAssembly.put();
+			} else {
 				nextStep();
 			}
 			break;

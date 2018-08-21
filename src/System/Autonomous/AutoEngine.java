@@ -94,9 +94,16 @@ public class AutoEngine {
 			station = 1;
 			break;
 		}
-
-		switchPos = (gameData.charAt(0) == 'L') ? 1 : 2;
-		scalePos = (gameData.charAt(1) == 'L') ? 1 : 2;
+		
+		if(gameData != null && !gameData.isEmpty()) {
+			switchPos = (gameData.charAt(0) == 'L') ? 1 : 2;
+			scalePos = (gameData.charAt(1) == 'L') ? 1 : 2;
+		}
+		else {
+			System.err.println("Game data is empty");
+			switchPos = 0;
+			scalePos = 0;
+		}
 		Timer.delay(SmartDashboard.getNumber("autoDelay", 0));
 		gyrowalker.setTargetAngle(0);
 	}
@@ -133,6 +140,7 @@ public class AutoEngine {
 
 		SmartDashboard.putString("CurrentStep", currentStep);
 		SmartDashboard.putNumber("Current Angle", gyrowalker.getCurrentAngle());
+		SmartDashboard.putNumber("Target Angle", gyrowalker.getTargetAngle());
 		SmartDashboard.putNumber("Error Angle", gyrowalker.getErrorAngle());
 		SmartDashboard.putNumber("Left Dis", leftDistance);
 		SmartDashboard.putNumber("Right Dis", rightDistance);
@@ -192,5 +200,17 @@ public class AutoEngine {
 	
 	public static double getTranslateAngle() {
 		return GyroWalker.translateAngle(gyro.getAngle());
+	}
+	
+	public static double getAngle() {
+		return gyro.getAngle();
+	}
+	
+	public static double getLefttEncVal() {
+		return leftEnc.getDistance() * disPerStep;
+	}
+	
+	public static double getRightEncVal() {
+		return rightEnc.getDistance() * disPerStep;
 	}
 }
