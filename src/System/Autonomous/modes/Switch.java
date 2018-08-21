@@ -44,11 +44,15 @@ public class Switch extends AutoEngine {
 			break;
 		case 3:
 			currentStep = "Set Raise Up";
+			leftSpeed = 0;
+			rightSpeed = 0;
 			UpAssembly.moveStep(1);
 			nextStep();
 			break;
 		case 4:
 			currentStep = "Raise Up";
+			leftSpeed = 0;
+			rightSpeed = 0;
 			if(UpAssembly.isReachTarget()) {
 				nextStep();
 			}
@@ -69,6 +73,8 @@ public class Switch extends AutoEngine {
 			break;
 		case 8:
 			currentStep = "Finished";
+			leftSpeed = 0;
+			rightSpeed = 0;
 			break;
 		default:
 			currentStep = "none";
