@@ -21,7 +21,7 @@ public class SuckingAssembly {
 	private static Timer collectTimer = new Timer();
 	private static Timer putTimer = new Timer();
 	private static double collectTime = 5;
-	private static double puttime = 1;
+	private static double puttime = 2;
 
 	private static boolean collect = false;
 	private static boolean put_start = false, put_finish = false;

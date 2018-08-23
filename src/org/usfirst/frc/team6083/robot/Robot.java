@@ -44,17 +44,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		SmartDashboard.putString("CurrentStep", "deploy claw");
-		servo.set(0);
-		Timer.delay(1);
-		servo.set(1);
-		Timer.delay(0.2);
-		servo.set(0);
-		Timer.delay(0.2);
-		servo.set(1);
-		Timer.delay(0.2);
-		servo.set(0);
-		Timer.delay(0.2);
-		servo.set(1);
+		UpAssembly.setTarget(500);
+		while(!UpAssembly.isReachTarget()) {
+			UpAssembly.autoLoop();
+		}
 		//Push rope to release claw
 		System.out.println("Claw deployed");
 		

@@ -23,7 +23,7 @@ public class UpAssembly {
 		UPmotor = new TalonSRX(3);
 		UpEnc = new Encoder(enc_ChA,enc_ChB);
 		UpEnc.reset();
-		gain = 0.005;
+		gain = 0.007;
 		targetStep = 0;
 		steps_index = 0;
 		
@@ -103,7 +103,7 @@ public class UpAssembly {
 	}
 	
 	public static boolean isReachTarget() {
-		return (Math.abs(UpEnc.get() - targetStep) < 50)?true:false;
+		return (Math.abs(UpEnc.get() - targetStep) < 70)?true:false;
 	}
 	
 	public static void up() {

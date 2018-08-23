@@ -67,13 +67,14 @@ public class AutoEngine {
 		gyro.calibrate();
 		Dashboard.partReady("Gyro");
 		gyrowalker = new GyroWalker(gyro);
+		
 		leftEnc = new Encoder(leftEnc_ChA, leftEnc_ChB);
 		leftEnc.setReverseDirection(true);
 		rightEnc = new Encoder(rightEnc_ChA, rightEnc_ChB);
 		rightEnc.setReverseDirection(false);
+		
 		SmartDashboard.putNumber("autoDelay", 0);
 		SmartDashboard.putString("CurrentStep", "wait to start");
-		
 		Dashboard.partReady("AutoEngine");
 	}
 
@@ -83,9 +84,7 @@ public class AutoEngine {
 		System.out.println("Auto selected: " + m_autoSelected + " on " + allianceSelected);
 		gyro.reset();
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		step = 0;
-		leftSpeed = 0;
-		rightSpeed = 0;
+		
 		switch (allianceSelected) {
 		case kA1:
 			station = 1;
@@ -110,8 +109,17 @@ public class AutoEngine {
 			switchPos = 0;
 			scalePos = 0;
 		}
+		
+		step = 0;
+		leftSpeed = 0;
+		rightSpeed = 0;
+		leftEnc.reset();
+		rightEnc.reset();
+		//Reset everything
+		
 		Timer.delay(SmartDashboard.getNumber("autoDelay", 0));
 		gyrowalker.setTargetAngle(0);
+		UpAssembly.setTarget(-500);
 	}
 
 	public static void loop() {
@@ -158,6 +166,7 @@ public class AutoEngine {
 		System.out.println("Finish step:"+currentStep);
 		autoTimer.stop();
 		autoTimer.reset();
+		autoTimer.start();
 		System.out.println("Encoder reset on "+ leftDistance +", "+ rightDistance);
 		leftEnc.reset();
 		rightEnc.reset();
@@ -178,7 +187,6 @@ public class AutoEngine {
 			if (rightDistance > dis || leftDistance > dis) {
 				rightSpeed = 0;
 				leftSpeed = 0;
-				gyrowalker.setTargetAngle(0);
 				nextStep();
 
 			}
@@ -196,7 +204,6 @@ public class AutoEngine {
 			if (rightDistance < dis || leftDistance < dis) {
 				rightSpeed = 0;
 				leftSpeed = 0;
-				gyrowalker.setTargetAngle(0);
 				nextStep();
 
 			}

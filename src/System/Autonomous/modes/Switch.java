@@ -7,7 +7,7 @@ import System.Autonomous.AutoEngine;
 public class Switch extends AutoEngine {
 
 	static double[] walk1 = { 135, 40, 135 };
-	static double[] walk2 = { 20 , 50, 20 };
+	static double[] walk2 = { 40 , 50, 40 };
 	static double walk3 = 3;
 
 	static boolean first = false;
@@ -62,6 +62,14 @@ public class Switch extends AutoEngine {
 			walk(walk2[station-1]);
 			break;
 		case 6:
+			currentStep = "Wait before put";
+			if(autoTimer.get()>0.8) {
+				nextStep();
+			}
+			leftSpeed = 0;
+			rightSpeed = 0;
+			break;
+		case 7:
 			currentStep = "Put Cube";
 			leftSpeed = 0;
 			rightSpeed = 0;
