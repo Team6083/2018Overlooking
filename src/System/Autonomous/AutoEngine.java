@@ -63,9 +63,9 @@ public class AutoEngine {
 		SmartDashboard.putData("Auto point choices", a_chooser);
 
 		gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-		Dashboard.partWarning("Gyro");
+		Dashboard.putWarning("Gyro");
 		gyro.calibrate();
-		Dashboard.partReady("Gyro");
+		Dashboard.putReady("Gyro");
 		gyrowalker = new GyroWalker(gyro);
 		
 		leftEnc = new Encoder(leftEnc_ChA, leftEnc_ChB);
@@ -75,7 +75,7 @@ public class AutoEngine {
 		
 		SmartDashboard.putNumber("autoDelay", 0);
 		SmartDashboard.putString("CurrentStep", "wait to start");
-		Dashboard.partReady("AutoEngine");
+		Dashboard.putReady("AutoEngine");
 	}
 
 	public static void start() {

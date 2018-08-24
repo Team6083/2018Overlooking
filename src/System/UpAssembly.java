@@ -31,7 +31,7 @@ public class UpAssembly {
 		SmartDashboard.putNumber("Up/Enc", UpEnc.get());
 		SmartDashboard.putNumber("Up/targetStep", targetStep);
 		SmartDashboard.putNumber("Up/motorOutPut", UPmotor.getMotorOutputPercent());
-		Dashboard.partReady("Up");
+		Dashboard.putReady("Up");
 	}
 	
 	public static void teleop() {
