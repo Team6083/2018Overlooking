@@ -22,15 +22,15 @@ public class Dashboard {
 		
 	}
 	
-	public static void partReady(String name) {
+	public static void putReady(String name) {
 		SmartDashboard.putNumber(name + "/status", 0);
 	}
 	
-	public static void partWarning(String name) {
+	public static void putWarning(String name) {
 		SmartDashboard.putNumber(name + "/status", 1);
 	}
 	
-	public static void partError(String name) {
+	public static void putError(String name) {
 		SmartDashboard.putNumber(name + "/status", 2);
 	}
 	

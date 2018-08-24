@@ -19,7 +19,7 @@ public class ClimbAssembly {
 		
 		SmartDashboard.putNumber("Climb/ropeOut", stringtalon.getMotorOutputPercent());
 		SmartDashboard.putNumber("Climb/HookOut", climbmotor.get());
-		Dashboard.partReady("Climb");
+		Dashboard.putReady("Climb");
 	}
 	
 	public static void teteop() {

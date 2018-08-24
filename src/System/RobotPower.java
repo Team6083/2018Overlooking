@@ -13,7 +13,7 @@ public class RobotPower {
 		if(!inited) {
 			pdp = new PowerDistributionPanel(PDP_CANID);
 		}
-		Dashboard.partReady("pdp");
+		Dashboard.putReady("pdp");
 	}
 	
 	public RobotPower(int port) {

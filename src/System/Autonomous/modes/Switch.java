@@ -8,9 +8,6 @@ public class Switch extends AutoEngine {
 
 	static double[] walk1 = { 135, 40, 135 };
 	static double[] walk2 = { 40 , 50, 40 };
-	static double walk3 = 3;
-
-	static boolean first = false;
 
 	public static void loop() {
 		switch (step) {
