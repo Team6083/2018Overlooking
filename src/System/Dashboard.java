@@ -14,7 +14,9 @@ public class Dashboard {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				loop();
+				while(true) {
+					loop();
+				}
 			}
 		}).start();
 		
@@ -43,8 +45,8 @@ public class Dashboard {
 		SmartDashboard.putNumber("ds/matchTime", ds.getMatchTime());
 		
 		int mode;
-		if(ds.isAutonomous()) {
-			mode = 1;
+		if(ds.isDisabled()) {
+			mode = 0;
 		}
 		else if(ds.isOperatorControl()) {
 			mode = 2;
@@ -52,8 +54,8 @@ public class Dashboard {
 		else if(ds.isTest()) {
 			mode = 3;
 		}
-		else if(ds.isDisabled()) {
-			mode = 0;
+		else if(ds.isAutonomous()) {
+			mode = 1;
 		}
 		else {
 			mode = -1;
