@@ -8,11 +8,6 @@ public class Baseline extends AutoEngine {
 
 	public static void loop() {
 		switch (step) {
-		/*
-		 * case 0: currentStep = "Set Raise Up"; UpAssembly.moveStep(1); nextStep();
-		 * break; case 1: currentStep = "Raise Up"; if
-		 * (UpAssembly.isReachTarget())nextStep(); leftSpeed = 0; rightSpeed = 0; break;
-		 */
 		case 0:
 			currentStep = "Go forward";
 				walk(baseLineDis);

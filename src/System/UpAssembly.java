@@ -23,22 +23,37 @@ public class UpAssembly {
 		UPmotor = new TalonSRX(3);
 		UpEnc = new Encoder(enc_ChA,enc_ChB);
 		UpEnc.reset();
-		gain = 0.005;
+		gain = 0.007;
 		targetStep = 0;
 		steps_index = 0;
+		
+		SmartDashboard.putBoolean("Up/HoldOverride", false);
+		SmartDashboard.putNumber("Up/Enc", UpEnc.get());
+		SmartDashboard.putNumber("Up/targetStep", targetStep);
+		SmartDashboard.putNumber("Up/motorOutPut", UPmotor.getMotorOutputPercent());
+		Dashboard.partReady("Up");
 	}
 	
 	public static void teleop() {
 		if (Joysticks.lt > 0.1) {
-		UPmotor.set(ControlMode.PercentOutput, Joysticks.lt * 0.75);
+			//go up
+			UPmotor.set(ControlMode.PercentOutput, Joysticks.lt * 0.75);
 			targetStep = UpEnc.get();
 		} else if (Joysticks.rt > 0.1) {
+			//go down
 			UPmotor.set(ControlMode.PercentOutput, -Joysticks.rt);
 			targetStep = UpEnc.get();
 		} else {
-			UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
+			//hold when not pressed
+			if(!SmartDashboard.getBoolean("Up/HoldOverride", false)) {
+				UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
+			}
+			else {
+				UPmotor.set(ControlMode.PercentOutput, 0);
+			}
 		}
 		
+		//moving to preset point
 		if(Joysticks.back && Joysticks.getRealeased(7) && steps_index > 0) {
 			steps_index--;
 			targetStep = set_steps[steps_index];
@@ -88,7 +103,7 @@ public class UpAssembly {
 	}
 	
 	public static boolean isReachTarget() {
-		return (Math.abs(UpEnc.get() - targetStep) < 50)?true:false;
+		return (Math.abs(UpEnc.get() - targetStep) < 70)?true:false;
 	}
 	
 	public static void up() {

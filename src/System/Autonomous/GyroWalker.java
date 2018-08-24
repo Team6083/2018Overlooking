@@ -19,7 +19,7 @@ public class GyroWalker {
 		leftPower = 0;
 		rightPower = 0;
 		targetAngle = 0;
-		gain = 0.004;
+		gain = 0.005;
 		maxPower = 0.6;
 		maxEdit = 0.2;
 	}
@@ -36,24 +36,30 @@ public class GyroWalker {
 		if(Math.abs(targetAngle)>160) {
 			angle = currentAngle; 
 		}
+		//translate angle to -180~180
 		
 		errorAngle = targetAngle - angle;
+		//calculate the difference between target angle and current angle
 		
 		double editPower = 0;
 		
 		if(Math.abs(errorAngle) < 20) {
+		//make robot still move if the errorAngle is too small
 			editPower = errorAngle * gain * (20 - errorAngle)/20 * 10;
 		}
 		else {
 			editPower =  errorAngle * gain;
 		}
+		//calculate output diff
 		
 		if(editPower>maxEdit) {
 			editPower = (editPower > 0)?maxEdit:-maxEdit;
 		}
+		//limit the max output diff
 		
 		leftPower = leftSetPower + editPower;
 		rightPower = rightSetPower - editPower;
+		//calculate final output
 		
 		if(Math.abs(leftPower)>maxPower) {
             if (leftPower >= 0) {
@@ -63,6 +69,7 @@ public class GyroWalker {
             }
 		}
 		
+		
 		if(Math.abs(rightPower)>maxPower) {
             if (rightPower >= 0) {
             	rightPower = maxPower;
@@ -70,6 +77,7 @@ public class GyroWalker {
             	rightPower = -maxPower;
             }
 		}
+		//limit max output
 	}
 	
 	public void setTargetAngle(double angle) {

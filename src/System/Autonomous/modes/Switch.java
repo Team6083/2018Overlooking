@@ -7,7 +7,7 @@ import System.Autonomous.AutoEngine;
 public class Switch extends AutoEngine {
 
 	static double[] walk1 = { 135, 40, 135 };
-	static double[] walk2 = { 20 , 50, 20 };
+	static double[] walk2 = { 40 , 50, 40 };
 	static double walk3 = 3;
 
 	static boolean first = false;
@@ -20,7 +20,7 @@ public class Switch extends AutoEngine {
 			break;
 		case 1:
 			currentStep = "Set Turn1";
-			if((station == 1 && switchPos == 2) || (station == 3 && switchPos == 1)) {
+			if((station == 1 && switchPos == 2) || (station == 3 && switchPos == 1) || switchPos == 0) {
 				step = -1;
 				break;
 			}
@@ -44,13 +44,15 @@ public class Switch extends AutoEngine {
 			break;
 		case 3:
 			currentStep = "Set Raise Up";
-			if(switchPos == 2) {
-				UpAssembly.moveStep(1);
-			}
+			leftSpeed = 0;
+			rightSpeed = 0;
+			UpAssembly.moveStep(1);
 			nextStep();
 			break;
 		case 4:
 			currentStep = "Raise Up";
+			leftSpeed = 0;
+			rightSpeed = 0;
 			if(UpAssembly.isReachTarget()) {
 				nextStep();
 			}
@@ -60,22 +62,27 @@ public class Switch extends AutoEngine {
 			walk(walk2[station-1]);
 			break;
 		case 6:
+			currentStep = "Wait before put";
+			if(autoTimer.get()>0.8) {
+				nextStep();
+			}
+			leftSpeed = 0;
+			rightSpeed = 0;
+			break;
+		case 7:
 			currentStep = "Put Cube";
 			leftSpeed = 0;
 			rightSpeed = 0;
-			if(switchPos == 2) {
-				if (!SuckingAssembly.isPut()) {
-					SuckingAssembly.put();
-				} else {
-					nextStep();
-				}
-			}
-			else {
+			if (!SuckingAssembly.isPut()) {
+				SuckingAssembly.put();
+			} else {
 				nextStep();
 			}
 			break;
 		case 8:
 			currentStep = "Finished";
+			leftSpeed = 0;
+			rightSpeed = 0;
 			break;
 		default:
 			currentStep = "none";

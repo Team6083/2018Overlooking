@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ClimbAssembly {
 	
@@ -15,6 +16,10 @@ public class ClimbAssembly {
 	public static void init() {
 		climbmotor = new VictorSP(climbmotor_Port);
 		stringtalon = new TalonSRX(stringtalon_Port);
+		
+		SmartDashboard.putNumber("Climb/ropeOut", stringtalon.getMotorOutputPercent());
+		SmartDashboard.putNumber("Climb/HookOut", climbmotor.get());
+		Dashboard.partReady("Climb");
 	}
 	
 	public static void teteop() {
@@ -36,5 +41,7 @@ public class ClimbAssembly {
 			climbmotor.set(0);
 		}
 		
+		SmartDashboard.putNumber("Climb/ropeOut", stringtalon.getMotorOutputPercent());
+		SmartDashboard.putNumber("Climb/HookOut", climbmotor.get());
 	}
 }

@@ -2,6 +2,7 @@ package System.Autonomous;
 
 import System.DriveBase;
 import System.UpAssembly;
+import System.Dashboard;
 import System.Autonomous.modes.*;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -62,26 +63,28 @@ public class AutoEngine {
 		SmartDashboard.putData("Auto point choices", a_chooser);
 
 		gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+		Dashboard.partWarning("Gyro");
 		gyro.calibrate();
+		Dashboard.partReady("Gyro");
 		gyrowalker = new GyroWalker(gyro);
+		
 		leftEnc = new Encoder(leftEnc_ChA, leftEnc_ChB);
 		leftEnc.setReverseDirection(true);
 		rightEnc = new Encoder(rightEnc_ChA, rightEnc_ChB);
 		rightEnc.setReverseDirection(false);
+		
 		SmartDashboard.putNumber("autoDelay", 0);
+		SmartDashboard.putString("CurrentStep", "wait to start");
+		Dashboard.partReady("AutoEngine");
 	}
 
 	public static void start() {
 		m_autoSelected = m_chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
 		allianceSelected = a_chooser.getSelected();
 		System.out.println("Auto selected: " + m_autoSelected + " on " + allianceSelected);
 		gyro.reset();
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		step = 0;
-		leftSpeed = 0;
-		rightSpeed = 0;
+		
 		switch (allianceSelected) {
 		case kA1:
 			station = 1;
@@ -96,16 +99,31 @@ public class AutoEngine {
 			station = 1;
 			break;
 		}
-
-		switchPos = (gameData.charAt(0) == 'L') ? 1 : 2;
-		scalePos = (gameData.charAt(1) == 'L') ? 1 : 2;
+		
+		if(gameData != null && !gameData.isEmpty()) {
+			switchPos = (gameData.charAt(0) == 'L') ? 1 : 2;
+			scalePos = (gameData.charAt(1) == 'L') ? 1 : 2;
+		}
+		else {
+			System.err.println("Game data is empty");
+			switchPos = 0;
+			scalePos = 0;
+		}
+		
+		step = 0;
+		leftSpeed = 0;
+		rightSpeed = 0;
+		leftEnc.reset();
+		rightEnc.reset();
+		//Reset everything
+		
 		Timer.delay(SmartDashboard.getNumber("autoDelay", 0));
-		// SmartDashboard.putNumber("Target Angle", 0);
 		gyrowalker.setTargetAngle(0);
+		UpAssembly.setTarget(-500);
 	}
 
 	public static void loop() {
-		SmartDashboard.putNumber("drive/gyro/angle", GyroWalker.translateAngle(gyro.getAngle()));
+		SmartDashboard.putNumber("Gyro/angle", GyroWalker.translateAngle(gyro.getAngle()));
 		leftDistance = leftEnc.getDistance() * disPerStep;
 		rightDistance = rightEnc.getDistance() * disPerStep;
 
@@ -125,7 +143,6 @@ public class AutoEngine {
 			leftSpeed = 0;
 			rightSpeed = 0;
 			gyrowalker.setTargetAngle(0);
-			// gyrowalker.setTargetAngle(SmartDashboard.getNumber("Target Angle", 0));
 			break;
 		}
 		UpAssembly.autoLoop();
@@ -135,8 +152,9 @@ public class AutoEngine {
 		rightSpeed = gyrowalker.getRightPower();
 		DriveBase.directControl(leftSpeed, -rightSpeed);
 
-		SmartDashboard.putString("currentStep", currentStep);
+		SmartDashboard.putString("CurrentStep", currentStep);
 		SmartDashboard.putNumber("Current Angle", gyrowalker.getCurrentAngle());
+		SmartDashboard.putNumber("Target Angle", gyrowalker.getTargetAngle());
 		SmartDashboard.putNumber("Error Angle", gyrowalker.getErrorAngle());
 		SmartDashboard.putNumber("Left Dis", leftDistance);
 		SmartDashboard.putNumber("Right Dis", rightDistance);
@@ -148,6 +166,7 @@ public class AutoEngine {
 		System.out.println("Finish step:"+currentStep);
 		autoTimer.stop();
 		autoTimer.reset();
+		autoTimer.start();
 		System.out.println("Encoder reset on "+ leftDistance +", "+ rightDistance);
 		leftEnc.reset();
 		rightEnc.reset();
@@ -168,7 +187,6 @@ public class AutoEngine {
 			if (rightDistance > dis || leftDistance > dis) {
 				rightSpeed = 0;
 				leftSpeed = 0;
-				gyrowalker.setTargetAngle(0);
 				nextStep();
 
 			}
@@ -186,11 +204,26 @@ public class AutoEngine {
 			if (rightDistance < dis || leftDistance < dis) {
 				rightSpeed = 0;
 				leftSpeed = 0;
-				gyrowalker.setTargetAngle(0);
 				nextStep();
 
 			}
 		}
 
+	}
+	
+	public static double getTranslateAngle() {
+		return GyroWalker.translateAngle(gyro.getAngle());
+	}
+	
+	public static double getAngle() {
+		return gyro.getAngle();
+	}
+	
+	public static double getLefttEncVal() {
+		return leftEnc.getDistance() * disPerStep;
+	}
+	
+	public static double getRightEncVal() {
+		return rightEnc.getDistance() * disPerStep;
 	}
 }
