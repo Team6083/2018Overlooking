@@ -70,10 +70,10 @@ public class DriveBase {
 		reverseDrive = SmartDashboard.getBoolean("drive/reverse", reverseDrive);
 		
 		
-		if (Joysticks.lab) {
+		if (Joysticks.lb) {
 			left = left * 2;
 		}
-		if (Joysticks.rab) {
+		if (Joysticks.rb) {
 			right = right * 2;
 		}
 

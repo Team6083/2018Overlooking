@@ -41,11 +41,11 @@ public class SuckingAssembly {
 		double curr1 = power1.getPortCurrent();
 		double curr2 = power2.getPortCurrent();
 		
-		if (Joysticks.rb) {
+		if (Joysticks.lab) {
 			// put cube
 			motor1.set((curr1 > stopCurrent) ? 0 : 0.4);
 			motor2.set((curr2 > stopCurrent) ? 0 : -0.4);
-		} else if (Joysticks.lb) {
+		} else if (Joysticks.x) {
 			// suck cube without current limit
 			motor1.set((curr1 > stopCurrent) ? 0 : -speed);
 			motor2.set((curr2 > stopCurrent) ? 0 : speed);
@@ -63,7 +63,7 @@ public class SuckingAssembly {
 			motor2.set(0);
 		}
 
-		if (collectTimer.get() > collectTime || curr1 > stopCurrent || curr2 > stopCurrent || Joysticks.lb || Joysticks.rb) {
+		if (collectTimer.get() > collectTime || curr1 > stopCurrent || curr2 > stopCurrent || Joysticks.x || Joysticks.lab) {
 			collectTimer.stop();
 			collectTimer.reset();
 			collect = false;
