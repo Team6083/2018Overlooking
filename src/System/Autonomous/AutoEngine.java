@@ -176,14 +176,17 @@ public class AutoEngine {
 		if (dis > 0) {
 			if (leftDistance < dis) {
 				leftSpeed = 0.4;
-			} else {
-				leftSpeed = 0;
-			}
-			if (rightDistance < dis) {
 				rightSpeed = 0.4;
 			} else {
+				leftSpeed = 0;
 				rightSpeed = 0;
 			}
+//			if (rightDistance < dis) {
+//				rightSpeed = 0.4;
+//			} 
+//			else {
+//				rightSpeed = 0;
+//			}
 			if (rightDistance > dis || leftDistance > dis) {
 				rightSpeed = 0;
 				leftSpeed = 0;
@@ -193,14 +196,16 @@ public class AutoEngine {
 		} else {
 			if (leftDistance > dis) {
 				leftSpeed = -0.4;
-			} else {
-				leftSpeed = 0;
-			}
-			if (rightDistance > dis) {
 				rightSpeed = -0.4;
 			} else {
+				leftSpeed = 0;
 				rightSpeed = 0;
-			} 
+			}
+//			if (rightDistance > dis) {
+//				rightSpeed = -0.4;
+//			} else {
+//				rightSpeed = 0;
+//			} 
 			if (rightDistance < dis || leftDistance < dis) {
 				rightSpeed = 0;
 				leftSpeed = 0;
