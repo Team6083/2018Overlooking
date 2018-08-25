@@ -18,6 +18,7 @@ import System.Autonomous.AutoEngine;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
@@ -43,10 +44,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		SmartDashboard.putString("CurrentStep", "deploy claw");
-		UpAssembly.setTarget(500);
-		while(!UpAssembly.isReachTarget()) {
-			UpAssembly.autoLoop();
-		}
+//		UpAssembly.setTarget(500);
+		UpAssembly.down();
+//		while(!UpAssembly.isReachTarget()) {
+//			UpAssembly.autoLoop();
+//		}
+		Timer.delay(2);
+		UpAssembly.stop();
 		//Push rope to release claw
 		System.out.println("Claw deployed");
 		
