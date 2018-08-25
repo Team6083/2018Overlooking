@@ -7,7 +7,7 @@ import System.Autonomous.AutoEngine;
 public class Switch extends AutoEngine {
 
 	static double[] walk1 = { 135, 40, 135 };
-	static double[] walk2 = { 40 , 50, 40 };
+	static double[] walk2 = { 20 , 50, 40 };
 
 	public static void loop() {
 		switch (step) {
@@ -35,7 +35,7 @@ public class Switch extends AutoEngine {
 			currentStep = "Turn1";
 			leftSpeed = 0;
 			rightSpeed = 0;
-			if (gyrowalker.getErrorAngle() < 10) {
+			if (gyrowalker.getErrorAngle() < 15 || (autoTimer.get() > 2 && gyrowalker.getErrorAngle() < 40)) {
 				nextStep();
 			}
 			break;
@@ -57,6 +57,11 @@ public class Switch extends AutoEngine {
 		case 5:
 			currentStep = "walk2";
 			walk(walk2[station-1]);
+			if(autoTimer.get()>1.5) {
+				leftSpeed = 0;
+				rightSpeed = 0;
+				nextStep();
+			}
 			break;
 		case 6:
 			currentStep = "Wait before put";
