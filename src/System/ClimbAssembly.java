@@ -30,7 +30,7 @@ public class ClimbAssembly {
 			stringtalon.set(ControlMode.PercentOutput, 1);
 		}
 		else if(Joysticks.pov == 90) {
-			climbmotor.set(-0.5);
+			climbmotor.set(-0.6);
 		}
 		else if(Joysticks.pov == 270) {
 			climbmotor.set(0.4);
