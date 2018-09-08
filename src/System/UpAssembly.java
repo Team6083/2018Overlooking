@@ -27,7 +27,7 @@ public class UpAssembly {
 		targetStep = 0;
 		steps_index = 0;
 		
-		SmartDashboard.putBoolean("Up/HoldOverride", false);
+		SmartDashboard.putBoolean("Up/HoldOverride", true);
 		SmartDashboard.putNumber("Up/Enc", UpEnc.get());
 		SmartDashboard.putNumber("Up/targetStep", targetStep);
 		SmartDashboard.putNumber("Up/motorOutPut", UPmotor.getMotorOutputPercent());
