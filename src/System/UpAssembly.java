@@ -66,8 +66,12 @@ public class UpAssembly {
 	}
 	
 	public static void autoLoop() {
-		UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
-		
+		if(!SmartDashboard.getBoolean("Up/HoldOverride", false)) {
+			UPmotor.set(ControlMode.PercentOutput, calculateSpeed(targetStep));
+		}
+		else {
+			UPmotor.set(ControlMode.PercentOutput, 0);
+		}
 		dashboard();
 	}
 	
